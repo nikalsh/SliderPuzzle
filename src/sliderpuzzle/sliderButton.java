@@ -10,11 +10,11 @@ import javax.swing.JButton;
  */
 public class sliderButton extends JButton {
 
-    private String content;
     private ImageIcon icon;
     
     public sliderButton(String s) {
-        this.content = s;
+        super(s);
     }
+    
             
 }
