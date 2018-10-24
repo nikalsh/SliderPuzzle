@@ -1,5 +1,6 @@
 package sliderpuzzle;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseListener;
 import javax.swing.JLabel;
@@ -15,13 +16,14 @@ public class gamePanel extends JPanel {
     private int gridSize;
 
     public gamePanel(int size) {
-        this.gridSize=size*size;
-        
-        for (int i = 0; i < size; i++) {
+        this.gridSize = size * size;
+
+        for (int i = 0; i < gridSize; i++) {
             this.add(new sliderButton(Integer.toString(i)));
         }
 
-        setLayout(new GridLayout(3, 3));
+        setLayout(new GridLayout(size, size));
+        setPreferredSize(new Dimension(500, 500));
 
     }
 
