@@ -13,11 +13,10 @@ import javax.swing.JFrame;
  */
 public class gameBoard extends JFrame {
 
-    class myKeyListener implements KeyEventDispatcher {
+    private class myKeyListener implements KeyEventDispatcher {
 
         public myKeyListener() {
         }
-
         @Override
         public boolean dispatchKeyEvent(KeyEvent e) {
             if (e.getID() == KeyEvent.KEY_RELEASED) {
@@ -25,14 +24,13 @@ public class gameBoard extends JFrame {
                     System.exit(0);
                     dispose();
                 } else if (e.getKeyCode() == KeyEvent.VK_R) {
-                        System.out.println("Restarting the game");
-                        //TODO:
-                        //restartGame();q
+                    System.out.println("Restarting the game");
+                    //TODO:
+                    //restartGame();q
                 }
             }
             return false;
         }
-
     }
 
     private myKeyListener keyListener = new myKeyListener();

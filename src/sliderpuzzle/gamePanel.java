@@ -11,12 +11,12 @@ import javax.swing.JPanel;
  */
 public class gamePanel extends JPanel {
 
-    private int size;
     private JLabel label;
+    private int gridSize;
 
     public gamePanel(int size) {
-        this.size = size;
-
+        this.gridSize=size*size;
+        
         for (int i = 0; i < size; i++) {
             this.add(new sliderButton(Integer.toString(i)));
         }

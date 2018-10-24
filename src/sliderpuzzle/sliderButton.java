@@ -10,24 +10,25 @@ import javax.swing.event.AncestorListener;
  *
  * @author nikalsh
  */
-public class sliderButton extends JButton implements ActionListener{
+public class sliderButton extends JButton {
+
+    private class myActionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("pressed");
+        }
+
+    }
 
     private ImageIcon icon;
+    private myActionListener actionListener = new myActionListener();
 
     public sliderButton(String s) {
         super(s);
-        
-        addActionListener(this);
+
+        addActionListener(actionListener);
 
     }
-    
-    @Override
-    public void actionPerformed(ActionEvent e){
-        System.out.println("pressed");
-    }
-
- 
-    
-   
 
 }
