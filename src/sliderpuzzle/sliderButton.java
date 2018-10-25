@@ -19,9 +19,10 @@ public class sliderButton extends JButton implements gameLogic {
     private ImageIcon icon;
 
     public sliderButton(String s) {
-        super(s);
-
-        addActionListener(l -> {
+        super (s);
+    
+        addActionListener (l -> {
+/*
             Object dis = l.getSource();
             int datPos;
             JButton temp;
@@ -38,22 +39,24 @@ public class sliderButton extends JButton implements gameLogic {
                 if (temp.getText().equals("")) {
 
                     if (canThisButtonBeMoved(disPos, datPos)){
-
-                        gameLogic.buttonList.get(i).setText(((sliderButton) dis).getText());
-                        ((sliderButton) dis).setText("");
-                        System.out.println("button was moved");
-                        //TODO increment moves by 1
-
+                    
+                    
+*/// TODO: 2018-10-26 trying the GridBagLayoutConstraint class for restricting movement
+                    for (int i = 0; i < buttonList.size (); i++) {
+                        if (buttonList.get (i).getText ().equals ("")) {
+                            buttonList.get (i).setText (((JButton) l.getSource ()).getText ());
+                            ((JButton) l.getSource ()).setText ("");
+                        }
                     }
                     
+                    //TODO increment moves by 1
+                
                 }
-
-            }
-
-        }
+    
+    
         );
-
     }
+    
 
     public boolean canThisButtonBeMoved(int to, int from) {
 //        System.out.println("emptypos: " + from);
@@ -71,5 +74,5 @@ public class sliderButton extends JButton implements gameLogic {
         
     return Math.abs(res) == 1;
     }
-        
+    
 }
