@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 /**
  *
  * @author nikalsh
+ * @author johanone
  */
 public class gamePanel extends JPanel {
 
@@ -26,5 +27,17 @@ public class gamePanel extends JPanel {
         setPreferredSize(new Dimension(500, 500));
 
     }
+
+@Override
+public void mousePressed (MouseEvent e) {
+    System.out.println (((JButton) e.getSource()).getIcon  ());
+    for (int i = 0; i < buttonList.size (); i++) {
+        if (buttonList.get (i).getIcon () == null) {
+            buttonList.get (i).setIcon (((JButton) e.getSource()).getIcon  ());
+            ((JButton) e.getSource ()).setIcon (null);
+        }
+    }
+}
+
 
 }
