@@ -18,8 +18,8 @@ public class statPanel extends JPanel {
 
     private JLabel timerButton = new JLabel("Tid: 00:00");
     private JLabel moves = new JLabel("Drag: 0");
+    private int seconds;
     private Timer timer;
-    private int seconds = 0;
 
     public statPanel() {
         setLayout(new GridLayout(2, 0));
@@ -27,11 +27,11 @@ public class statPanel extends JPanel {
 
         add(timerButton);
         add(moves);
-        timer = new Timer();
-        timer.scheduleAtFixedRate(task, 0, 1000);
+        timer = new Timer();//create a new timer
+        timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
 
-    TimerTask task = new TimerTask() {
+    TimerTask timerTask = new TimerTask() {
         @Override
         public void run() {
 
@@ -40,5 +40,9 @@ public class statPanel extends JPanel {
         }
 
     };
+
+    public void resetTimer() {
+        this.seconds = 0;
+    }
 
 }
