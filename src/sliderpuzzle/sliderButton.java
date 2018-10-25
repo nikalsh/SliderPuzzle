@@ -9,6 +9,7 @@ import javax.swing.event.AncestorListener;
 /**
  *
  * @author nikalsh
+ *
  */
 public class sliderButton extends JButton {
 
