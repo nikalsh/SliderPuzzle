@@ -3,6 +3,7 @@
  */
 package sliderpuzzle;
 
+import java.awt.FlowLayout;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.swing.BoxLayout;
@@ -13,7 +14,8 @@ public class SliderPuzzle {
     public static void main(String[] args) throws MalformedURLException, IOException {
 
         
-        JFrame bottomBitch = new JFrame();
+        
+        
         
         gameBoard game = new gameBoard();
         game.setLayout(new BoxLayout(game.getContentPane(), BoxLayout.Y_AXIS));
@@ -31,7 +33,7 @@ public class SliderPuzzle {
         game.setVisible(true);
         game.setAlwaysOnTop(true);
         game.setResizable(false);
-        
+
         
         
 
