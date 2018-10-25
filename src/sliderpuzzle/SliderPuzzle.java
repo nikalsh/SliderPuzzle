@@ -10,12 +10,10 @@ public class SliderPuzzle {
 
     public static void main(String[] args) {
         
-        @// TODO: 2018-10-25 lalalala 
-        @// TODO: 2018-10-25
         
         gameBoard game = new gameBoard();
         game.setLayout(new BoxLayout(game.getContentPane(), BoxLayout.Y_AXIS));
-        gamePanel panel = new gamePanel(3);
+        gamePanel panel = new gamePanel(5);
         GUIPanel gui = new GUIPanel();
 
         game.add(panel);
