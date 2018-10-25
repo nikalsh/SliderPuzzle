@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 import javax.swing.JFrame;
 
 /**
@@ -14,6 +15,7 @@ import javax.swing.JFrame;
 public class gameBoard extends JFrame {
 
     private class myKeyListener implements KeyEventDispatcher {
+
         public myKeyListener() {
         }
 
@@ -29,8 +31,24 @@ public class gameBoard extends JFrame {
 
                     case KeyEvent.VK_R:
                         System.out.println("restarting");
-                        //TODO:
-                        //restartGame();
+                        //TODO restartGame();
+                        break;
+
+                    //TODO link controller scheme to game logic
+                    case KeyEvent.VK_UP:
+                        System.out.println("pressed up");
+                        break;
+
+                    case KeyEvent.VK_DOWN:
+                        System.out.println("pressed down");
+                        break;
+
+                    case KeyEvent.VK_LEFT:
+                        System.out.println("pressed left");
+                        break;
+
+                    case KeyEvent.VK_RIGHT:
+                        System.out.println("pressed right");
                         break;
                 }
             }
