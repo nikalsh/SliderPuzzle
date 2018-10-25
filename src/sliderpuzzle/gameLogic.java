@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface gameLogic {
 
-    List<JButton> buttonList = new ArrayList<>();
-    
+List<sliderButton> buttonList = new ArrayList<> ();
+
+
 }
