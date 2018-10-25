@@ -2,9 +2,11 @@ package sliderpuzzle;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.*;
 
 /**
  *
@@ -13,31 +15,63 @@ import javax.swing.JPanel;
  */
 public class gamePanel extends JPanel {
 
-    private JLabel label;
-    private int gridSize;
+List<JButton> buttonList = new ArrayList<> ();
 
-    public gamePanel(int size) {
-        this.gridSize = size * size;
+private JLabel label;
+private int gridSize;
 
-        for (int i = 0; i < gridSize; i++) {
-            this.add(new sliderButton(Integer.toString(i)));
-        }
-
-        setLayout(new GridLayout(size, size));
-        setPreferredSize(new Dimension(500, 500));
-
+public gamePanel (int size) {
+    this.gridSize = size * size;
+    
+    for (int i = 1; i < gridSize; i++) {
+        this.add (new sliderButton (Integer.toString (i)));
     }
-
-@Override
-public void mousePressed (MouseEvent e) {
-    System.out.println (((JButton) e.getSource()).getIcon  ());
-    for (int i = 0; i < buttonList.size (); i++) {
-        if (buttonList.get (i).getIcon () == null) {
-            buttonList.get (i).setIcon (((JButton) e.getSource()).getIcon  ());
-            ((JButton) e.getSource ()).setIcon (null);
-        }
-    }
+    this.add (new sliderButton ("LAST BUTTON"));
+    setLayout (new GridLayout (size, size));
+    setPreferredSize (new Dimension (500, 500));
+    
+  //  for (int i = 0; i < ((size * size)); i++) {
+     //   buttonList.add (new JButton ("Button " + i));
+     
+     
+  //  }
+    
+    
 }
 
+
+MouseListener ml = new MouseListener () {
+    
+    @Override
+    public void mousePressed (MouseEvent e) {
+        System.out.println (((JButton) e.getSource ()).getIcon ());
+        for (int i = 0; i < buttonList.size (); i++) {
+            if (buttonList.get (i).getIcon () == null) {
+                buttonList.get (i).setIcon (((JButton) e.getSource ()).getIcon ());
+                ((JButton) e.getSource ()).setIcon (null);
+            }
+        }
+    }
+    
+    @Override
+    public void mouseReleased (MouseEvent e) {
+    
+    }
+    
+    @Override
+    public void mouseEntered (MouseEvent e) {
+    
+    }
+    
+    @Override
+    public void mouseClicked (MouseEvent e) {
+    }
+    
+    @Override
+    public void mouseExited (MouseEvent e) {
+    }
+    
+    
+};
 
 }
