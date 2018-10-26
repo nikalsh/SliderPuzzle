@@ -38,7 +38,6 @@ public class statPanel extends JPanel {
             timerButton.setText("Tid: " + seconds);
             seconds++;
         }
-
     };
 
     public void resetTimer() {

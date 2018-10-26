@@ -20,7 +20,8 @@ public class GUIPanel extends JPanel {
     private JButton newGame = new JButton("Nytt spel");
     private JButton quit = new JButton("Avsluta");
     private JButton move = new JButton("Flytta");
-
+    
+    
     GUIPanel() {
 
         setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
@@ -31,7 +32,7 @@ public class GUIPanel extends JPanel {
         add(quit);
 
         newGame.addActionListener(l -> {
-
+            //statPanel.resetTimer();
             System.out.println("new game");
         });
 

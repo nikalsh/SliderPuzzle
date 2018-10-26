@@ -4,8 +4,14 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface gameLogic {
+public class gameLogic {
 
-    List<JButton> buttonList = new ArrayList<>();
+    
+    
+    
+    
+    public void move (){
+        
+    }
     
 }

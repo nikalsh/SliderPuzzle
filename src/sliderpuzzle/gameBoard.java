@@ -41,6 +41,8 @@ public class gameBoard extends JFrame {
 
                     case KeyEvent.VK_DOWN:
                         System.out.println("pressed down");
+                        
+                        
                         break;
 
                     case KeyEvent.VK_LEFT:
@@ -65,6 +67,7 @@ public class gameBoard extends JFrame {
 
         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         manager.addKeyEventDispatcher(new myKeyListener());
+        
     }
 
 }
