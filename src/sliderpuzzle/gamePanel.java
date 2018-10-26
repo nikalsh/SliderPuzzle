@@ -1,6 +1,6 @@
 package sliderpuzzle;
 
-import org.apache.commons.collections.map.MultiValueMap;
+//import org.apache.commons.collections.map.MultiValueMap;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,11 +64,7 @@ void addComponent (Container container, Component component, int gridx, int grid
         container.add (component, gbc);
         
 
-    MultiValueMap cordMap = new MultiValueMap ();
-    cordMap.put (valueListNumber, gbc.gridy);
-    cordMap.put (valueListNumber, gbc.gridx);
-    System.out.println (cordMap.getCollection (valueListNumber));
-    valueListNumber++;
+ 
 }
 
     
