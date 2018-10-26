@@ -19,7 +19,7 @@ public static void main (String[] args) throws MalformedURLException, IOExceptio
     game.setLayout (new BoxLayout (game.getContentPane (), BoxLayout.Y_AXIS));
     GUIPanel gui = new GUIPanel ();
     
-    game.add (new gamePanel (7));
+    game.add (new gamePanel (4));
     statPanel stats = new statPanel ();
     game.add (stats);
     game.add (gui);
@@ -29,7 +29,7 @@ public static void main (String[] args) throws MalformedURLException, IOExceptio
     
     game.setVisible (true);
     game.setAlwaysOnTop (true);
-    game.setResizable (false);
+    game.setResizable (true);
     
     
 }
