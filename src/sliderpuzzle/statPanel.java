@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  * @author nikalsh
  */
 public class statPanel extends JPanel {
-
+ 
     private JLabel timerButton = new JLabel("Tid: 00:00");
     private JLabel moves = new JLabel("Drag: 0");
     private int seconds;
