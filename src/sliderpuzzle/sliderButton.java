@@ -1,13 +1,6 @@
 package sliderpuzzle;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.event.AncestorListener;
+import javax.swing.*;
 
 /**
  *
@@ -16,63 +9,44 @@ import javax.swing.event.AncestorListener;
  */
 public class sliderButton extends JButton implements gameLogic {
 
-    private ImageIcon icon;
+sliderButton oldNullBUTT = null;
 
-    public sliderButton(String s) {
-        super (s);
+public sliderButton (String s) {
+    super (s);
     
-        addActionListener (l -> {
-/*
-            Object dis = l.getSource();
-            int datPos;
-            JButton temp;
-
-            int disPos = gameLogic.buttonList.lastIndexOf(this) + 1;
-//            System.out.print(
-//                    "pressed button: ");
-//            System.out.println(
-//                    ((sliderButton) dis).getText());
-            for (int i = 0; i < gameLogic.buttonList.size(); i++) {
-                temp = gameLogic.buttonList.get(i);
-                datPos = gameLogic.buttonList.indexOf(temp ) +1;
-                
-                if (temp.getText().equals("")) {
-
-                    if (canThisButtonBeMoved(disPos, datPos)){
-                    
-                    
-*/// TODO: 2018-10-26 trying the GridBagLayoutConstraint class for restricting movement
-                    for (int i = 0; i < buttonList.size (); i++) {
-                        if (buttonList.get (i).getText ().equals ("")) {
-                            buttonList.get (i).setText (((JButton) l.getSource ()).getText ());
-                            ((JButton) l.getSource ()).setText ("");
-                        }
-                    }
-                    
-                    //TODO increment moves by 1
-                
+    addActionListener (l -> {
+        
+        for (int i = 0; i < buttonList.size () ; i++) {
+            boolean nullBool = (boolean) buttonList.get (i).getClientProperty("null");
+            if (nullBool)
+                oldNullBUTT = buttonList.get(i);
+        }
+        
+        sliderButton clickedBUTT = (sliderButton) l.getSource ();
+        
+        int oldNullBUTTX = (Integer) oldNullBUTT.getClientProperty ("column");
+        int oldNullBUTTY = (Integer) oldNullBUTT.getClientProperty ("row");
+        
+        int clickedBUTTX = (Integer) clickedBUTT.getClientProperty ("column");
+        int clickedBUTTY = (Integer) clickedBUTT.getClientProperty ("row");
+        
+        // UPP ELLER NER X, Y SAMMA
+            if (clickedBUTTX == oldNullBUTTX+1 || clickedBUTTX == oldNullBUTTX-1) {
+                if (clickedBUTTY == oldNullBUTTY) {
+                    oldNullBUTT.putClientProperty ("null", false);
+                    oldNullBUTT.setText (clickedBUTT.getText ());
+                    clickedBUTT.putClientProperty ("null", true);
+                    clickedBUTT.setText ("null");
                 }
-    
-    
-        );
-    }
-    
-
-    public boolean canThisButtonBeMoved(int to, int from) {
-//        System.out.println("emptypos: " + from);
-//        System.out.println("dis: " + to);
-        
-        int res = from-to;
-        System.out.println("To: " + to);
-        System.out.println("From: " + from);
-        
-        
-        
-        System.out.println("abs: " +res);
-        
-        System.out.println(Math.abs(res) == 1);
-        
-    return Math.abs(res) == 1;
-    }
-    
+            }
+            // UPP ELLER NER Y, X SAMMA
+            if (clickedBUTTY == oldNullBUTTY+1 || clickedBUTTY == oldNullBUTTY-1) {
+                if (clickedBUTTX == oldNullBUTTX) {
+                    oldNullBUTT.putClientProperty ("null", false);
+                    oldNullBUTT.setText (clickedBUTT.getText ());
+                    clickedBUTT.putClientProperty ("null", true);
+                    clickedBUTT.setText ("null");                }
+            }
+    });
+}
 }
