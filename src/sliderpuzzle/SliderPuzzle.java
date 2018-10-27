@@ -3,6 +3,8 @@
  */
 package sliderpuzzle;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -19,7 +21,7 @@ public static void main (String[] args) throws MalformedURLException, IOExceptio
     game.setLayout (new BoxLayout (game.getContentPane (), BoxLayout.Y_AXIS));
     GUIPanel gui = new GUIPanel ();
     
-    game.add (new gamePanel (4));
+    game.add (new gamePanel (5));
     statPanel stats = new statPanel ();
     game.add (stats);
     game.add (gui);
@@ -41,12 +43,14 @@ public void mouseClicked (MouseEvent e) {
 
 @Override
 public void mousePressed (MouseEvent e) {
+    
     System.out.println (((JButton) e.getSource ()).getText ());
+    
     for (int i = 0; i < buttonList.size (); i++) {
-        if (buttonList.get (i).getText ().equals ("")) {
+    
             buttonList.get (i).setText (((JButton) e.getSource ()).getText ());
             ((JButton) e.getSource ()).setText ("");
-}}}
+}}
 
 @Override
 public void mouseReleased (MouseEvent e) {
@@ -62,4 +66,8 @@ public void mouseEntered (MouseEvent e) {
 public void mouseExited (MouseEvent e) {
 
 }
-}
+
+	
+	
+	}
+
