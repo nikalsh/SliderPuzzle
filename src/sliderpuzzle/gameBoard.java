@@ -34,24 +34,6 @@ public class gameBoard extends JFrame {
                         //TODO restartGame();
                         break;
 
-                    //TODO link controller scheme to game logic
-                    case KeyEvent.VK_UP:
-                        System.out.println("pressed up");
-                        break;
-
-                    case KeyEvent.VK_DOWN:
-                        System.out.println("pressed down");
-                        
-                        
-                        break;
-
-                    case KeyEvent.VK_LEFT:
-                        System.out.println("pressed left");
-                        break;
-
-                    case KeyEvent.VK_RIGHT:
-                        System.out.println("pressed right");
-                        break;
                 }
             }
             return false;

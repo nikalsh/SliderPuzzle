@@ -41,5 +41,9 @@ public class sliderButton extends JButton {
     public int y(){
         return this.y;
     }
+    
+    public int pos(){
+        return this.pos;
+    }
 
 }

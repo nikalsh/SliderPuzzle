@@ -1,5 +1,6 @@
 package sliderpuzzle;
 
+import com.sun.imageio.plugins.common.I18N;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -31,62 +32,47 @@ public class gamePanel extends JPanel {
             for (int j = 0; j < size; j++) {
                 k++;
 
-                sliderButton btn = new sliderButton((k == this.gridSize ? "" : Integer.toString(k)), i, j, k);
+                sliderButton btn = new sliderButton((k == this.gridSize ? "" : Integer.toString(k)), j, i, k);
                 btnList[i][j] = btn;
                 add(btn);
 
                 btn.addActionListener(l -> {
                     sliderButton A = ((sliderButton) l.getSource());
-                    int y = A.x();
-                    int x = A.y();
+                    int y = A.y();
+                    int x = A.x();
                     int diffY = 0;
                     int diffX = 0;
                     int diff;
                     int b = 0;
 
-                    try {
-                        OUTER: for (int yy = 0; yy < btnList.length; yy++) {
-                            for (int xx = 0; xx < btnList.length; xx++) {
+                    OUTER:
+                    for (int yy = 0; yy < btnList.length; yy++) {
+                        for (int xx = 0; xx < btnList.length; xx++) {
 
-                                System.out.print(btnList[yy][xx].getText() + " ");
-                                if (btnList[yy][xx].getText().equals("")) {
+                            if (btnList[yy][xx].getText().equals("")) {
 
-                                    diffY = Math.abs(yy - y);
-                                    diffX = Math.abs(xx - x);
+                                diffY = Math.abs(yy - y);
+                                diffX = Math.abs(xx - x);
 
-                                    if (diffY == 1 && diffX == 0) {
-                                        
-                                        btnList[yy][xx].setText(A.getText());
-                                        A.setText("");
-                                        break OUTER;
-                                        
-                                        
-                                    }
-                                    
-                                      if (diffX == 1 && diffY == 0) {
-                                        
-                                        btnList[yy][xx].setText(A.getText());
-                                        A.setText("");
-                                        break OUTER;
-                                        
-                                        
-                                    }
-
-                                    System.out.println("diffy: " + diffY + " " + "diffx: " + diffX);
-
+                                if (diffY == 1 && diffX == 0 || diffX == 1 && diffY == 0) { //Sätt diffX/Y > 1 för korrekt logik, för att flytta fler krävs 
+                                                                                            // diffX/Y >= 1 och fungerade algoritm i swap metoden 
+                                    swap(A, btnList[yy][xx]);
+                                    break OUTER;
                                 }
+
                             }
-
-                            System.out.println("");
-
                         }
-
-                        System.out.println(btnList[y][x - 1].getText());
-
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.out.println("touching edge");
                     }
 
+                        System.out.println("");
+                    for (int yy = 0; yy < btnList.length; yy++) {
+                        for (int xx = 0; xx < btnList.length; xx++) {
+                            System.out.print(btnList[yy][xx].getText().equals(Integer.toString(btnList[yy][xx].pos())) + " ");
+                        }
+                        System.out.println("");
+                    }
+
+//                    System.out.println(btnList[btnList.length - 1][btnList.length - 1].pos());
                 });
 
             }
@@ -95,6 +81,34 @@ public class gamePanel extends JPanel {
 
         setPreferredSize(new Dimension(500, 500));
 
+    }
+
+    public void swap(sliderButton A, sliderButton B) {
+
+//        System.out.println(B.y() - A.y());
+//        if (B.y() - A.y() == 0) {
+//
+//            int diff = Math.abs(B.x() - A.x());
+//            int i = 0;
+//            while (diff > 1) {
+//                
+//                
+//                
+//                System.out.println(btnList[A.y()][A.x()+1].getText());
+//        
+//
+//                diff--;
+//                i++;
+//
+//            }
+            
+            
+
+//        }
+//        B.setText(A.getText());
+//        A.setText("");
+        B.setText(A.getText());
+        A.setText("");
     }
 
 //    public boolean tileIsMoveable(){

@@ -19,7 +19,7 @@ public class SliderPuzzle {
         
         gameBoard game = new gameBoard();
         game.setLayout(new BoxLayout(game.getContentPane(), BoxLayout.Y_AXIS));
-        gamePanel panel = new gamePanel(5);
+        gamePanel panel = new gamePanel(4);
         GUIPanel gui = new GUIPanel();
 
         statPanel stats = new statPanel();
