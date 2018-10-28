@@ -1,6 +1,7 @@
 package sliderpuzzle;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -16,10 +17,12 @@ public sliderButton (String s) {
     
     addActionListener (l -> {
         
+        
         for (int i = 0; i < buttonList.size () ; i++) {
-            boolean nullBool = (boolean) buttonList.get (i).getClientProperty("null");
-            if (nullBool)
-                oldNullBUTT = buttonList.get(i);
+            boolean nullBool = (boolean) buttonList.get (i).getClientProperty ("null");
+            if (nullBool) {
+                oldNullBUTT = buttonList.get (i);
+            }
         }
         
         sliderButton clickedBUTT = (sliderButton) l.getSource ();
@@ -33,20 +36,25 @@ public sliderButton (String s) {
         // UPP ELLER NER X, Y SAMMA
             if (clickedBUTTX == oldNullBUTTX+1 || clickedBUTTX == oldNullBUTTX-1) {
                 if (clickedBUTTY == oldNullBUTTY) {
-                    oldNullBUTT.putClientProperty ("null", false);
-                    oldNullBUTT.setText (clickedBUTT.getText ());
-                    clickedBUTT.putClientProperty ("null", true);
-                    clickedBUTT.setText ("null");
+                    switchTheButtons (oldNullBUTT, clickedBUTT);
                 }
             }
+            
             // UPP ELLER NER Y, X SAMMA
             if (clickedBUTTY == oldNullBUTTY+1 || clickedBUTTY == oldNullBUTTY-1) {
                 if (clickedBUTTX == oldNullBUTTX) {
-                    oldNullBUTT.putClientProperty ("null", false);
-                    oldNullBUTT.setText (clickedBUTT.getText ());
-                    clickedBUTT.putClientProperty ("null", true);
-                    clickedBUTT.setText ("null");                }
+switchTheButtons (oldNullBUTT, clickedBUTT);
+                }
             }
     });
+}
+
+public void switchTheButtons (sliderButton oldNullBUTT, sliderButton clickedBUTT) {
+    oldNullBUTT.putClientProperty ("null", false);
+    oldNullBUTT.setText (clickedBUTT.getText ());
+    oldNullBUTT.setBackground (null);
+    clickedBUTT.putClientProperty ("null", true);
+    clickedBUTT.setText ("null");
+    clickedBUTT.setBackground (Color.lightGray);
 }
 }

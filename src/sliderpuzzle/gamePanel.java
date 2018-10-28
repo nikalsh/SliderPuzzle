@@ -3,6 +3,7 @@ package sliderpuzzle;
 import org.apache.commons.collections.map.MultiValueMap;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,6 +17,7 @@ import java.util.List;
 public class gamePanel extends JPanel implements gameLogic {
 
 static final Insets insets = new Insets (0, 0, 0, 0);
+// Font fontOfButtons = new Font("Serif", Font.ITALIC | Font.BOLD, 26);
 
 public gamePanel (int size) {
     
@@ -25,12 +27,12 @@ public gamePanel (int size) {
     int buttonNumber = 0;
     int y = 0;
     
-    List<Integer> intList = new ArrayList<> (size * size);
-    for (int i = 0; i < (size * size); i++) {
-        intList.add (i);
-    }
+    // CORRECT SOLVE
+/*    for (int i = 0; i < (size * size); i++) {
+        correctOrderDescending.add (i);
+    }*/
     
-    Collections.shuffle (intList);
+ //   Collections.shuffle (correctOrderDescending);
     
     int i, x;
     
@@ -41,11 +43,16 @@ public gamePanel (int size) {
             buttonList.get (buttonNumber).putClientProperty ("column", x);
             buttonList.get (buttonNumber).putClientProperty ("row", y);
             buttonList.get (buttonNumber).putClientProperty ("null", false);
+            correctOrderDescending.add (buttonList.get (i));
+       //     buttonList.get (buttonNumber).setBorder (new LineBorder (Color.BLACK, 1, true));
+       //     buttonList.get (buttonNumber).setFont(fontOfButtons);
+            
         }
         ++y;
     }
     buttonList.get (buttonList.size () - 1).putClientProperty ("null", true);
     buttonList.get (buttonList.size () - 1).setText ("null");
+    gamePanel.correctOrderDescending.addAll (buttonList);
 }
 
 void addComponent (Container container, Component component, int gridx, int gridy,
@@ -54,13 +61,7 @@ void addComponent (Container container, Component component, int gridx, int grid
             anchor, fill, insets, 0, 0);
     container.add (component, gbc);
 }
-    
-
-
-        
-
+void shuffleTheField () {
+    Collections.shuffle(buttonList);
 }
-    
-   
-
-        
+}
