@@ -6,5 +6,6 @@ import java.util.List;
 public interface gameLogic {
 
 List<sliderButton> buttonList = new ArrayList<> ();
+List<sliderButton> correctOrderDescending = new ArrayList<> ();
 
 }
