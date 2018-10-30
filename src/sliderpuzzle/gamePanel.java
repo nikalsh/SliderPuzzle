@@ -5,8 +5,7 @@ import org.apache.commons.collections.map.MultiValueMap;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -43,12 +42,16 @@ public gamePanel (int size) {
             buttonList.get (buttonNumber).putClientProperty ("column", x);
             buttonList.get (buttonNumber).putClientProperty ("row", y);
             buttonList.get (buttonNumber).putClientProperty ("null", false);
-            correctOrderDescending.add (buttonList.get (i));
        //     buttonList.get (buttonNumber).setBorder (new LineBorder (Color.BLACK, 1, true));
        //     buttonList.get (buttonNumber).setFont(fontOfButtons);
             
         }
         ++y;
+    }
+    for (sliderButton aButtonList : buttonList) {
+        if (!(size>7))
+            aButtonList.setPreferredSize (new Dimension ((size*20), (size*20)));
+        else aButtonList.setPreferredSize (new Dimension ((size*10), (size*10)));
     }
     buttonList.get (buttonList.size () - 1).putClientProperty ("null", true);
     buttonList.get (buttonList.size () - 1).setText ("null");
@@ -61,7 +64,13 @@ void addComponent (Container container, Component component, int gridx, int grid
             anchor, fill, insets, 0, 0);
     container.add (component, gbc);
 }
-void shuffleTheField () {
-    Collections.shuffle(buttonList);
+public void randomizeButtons (List<sliderButton> buttonList) {
+    Collections.shuffle (buttonList);
+    for (int i = 0; i < buttonList.size (); i++) {
+        System.out.println (buttonList.get (i));
+        
+    }
+    
 }
+
 }

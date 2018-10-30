@@ -17,11 +17,13 @@ public class SliderPuzzle implements MouseListener {
 
 public static void main (String[] args) throws MalformedURLException, IOException {
     
+    
+    
     gameBoard game = new gameBoard ();
     game.setLayout (new BoxLayout (game.getContentPane (), BoxLayout.Y_AXIS));
     GUIPanel gui = new GUIPanel ();
     
-    game.add (new gamePanel (5));
+    game.add (new gamePanel (7));
     statPanel stats = new statPanel ();
     game.add (stats);
     game.add (gui);
@@ -34,7 +36,24 @@ public static void main (String[] args) throws MalformedURLException, IOExceptio
     game.setResizable (true);
     
     
+    
 }
+public void redrawWithNewSize (int size) {
+    
+  //  new gameBoard ().removeAll();
+    gameBoard game = new gameBoard ();
+    game.setLayout (new BoxLayout (game.getContentPane (), BoxLayout.Y_AXIS));
+    GUIPanel gui = new GUIPanel ();
+    
+    game.add (new gamePanel (size));
+    statPanel stats = new statPanel ();
+    game.add (stats);
+    game.add (gui);
+    
+    game.pack ();
+    
+}
+
 
 @Override
 public void mouseClicked (MouseEvent e) {
