@@ -26,13 +26,6 @@ public gamePanel (int size) {
     int buttonNumber = 0;
     int y = 0;
     
-    // CORRECT SOLVE
-/*    for (int i = 0; i < (size * size); i++) {
-        correctOrderDescending.add (i);
-    }*/
-    
- //   Collections.shuffle (correctOrderDescending);
-    
     int i, x;
     
     while (buttonList.size () < (size * size)) {
