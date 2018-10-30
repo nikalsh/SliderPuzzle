@@ -51,7 +51,7 @@ public class GUIPanel extends JPanel {
         gridSize.addActionListener(l -> {
             int size = 8;
             System.out.println("chooses grid size");
-            new SliderPuzzle ().redrawWithNewSize (size);
+            new SliderPuzzle (size) ;
         });
 
 //        add(timerDisplayer);
