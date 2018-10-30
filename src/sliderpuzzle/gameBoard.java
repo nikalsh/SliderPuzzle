@@ -6,7 +6,7 @@ import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.util.Random;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 /**
  *
@@ -66,5 +66,6 @@ public class gameBoard extends JFrame {
         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         manager.addKeyEventDispatcher(new myKeyListener());
     }
+    
 
 }
