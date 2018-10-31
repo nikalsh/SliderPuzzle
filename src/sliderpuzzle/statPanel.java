@@ -27,8 +27,11 @@ public class statPanel extends JPanel {
 
         add(timerButton);
         add(moves);
-        timer = new Timer();//create a new timer
+
+        timer = new Timer();
         timer.scheduleAtFixedRate(timerTask, 0, 1000);
+
+      
     }
 
     TimerTask timerTask = new TimerTask() {

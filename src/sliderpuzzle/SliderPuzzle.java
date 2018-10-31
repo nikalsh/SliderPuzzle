@@ -13,17 +13,12 @@ public class SliderPuzzle {
 
     public static void main(String[] args) throws MalformedURLException, IOException {
 
-        
-        
-        
-        
         gameBoard game = new gameBoard();
         game.setLayout(new BoxLayout(game.getContentPane(), BoxLayout.Y_AXIS));
-        gamePanel panel = new gamePanel(4);
         GUIPanel gui = new GUIPanel();
 
+        game.add(new gamePanel(4));
         statPanel stats = new statPanel();
-        game.add(panel);
         game.add(stats);
         game.add(gui);
 
@@ -32,12 +27,7 @@ public class SliderPuzzle {
 
         game.setVisible(true);
         game.setAlwaysOnTop(true);
-        game.setResizable(false);
+        game.setResizable(true);
 
-        
-        
-
-      
     }
-
 }
