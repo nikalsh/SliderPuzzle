@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import javax.swing.*;
 
 /**
@@ -11,7 +14,11 @@ import javax.swing.*;
  * @author nikalsh
  * @author johanone
  */
-public class gamePanel extends JPanel implements GUIButtonListener{
+public class gamePanel extends JPanel implements GUIButtonListener, KBControllerListener {
+
+    int emptyX, emptyY, newX, newY;
+
+    private List<PaneLListener> listeners = new ArrayList<>();
 
     private ImageHandler imgWiz = new ImageHandler();
     private JLabel label;
@@ -25,16 +32,21 @@ public class gamePanel extends JPanel implements GUIButtonListener{
 
         this.size = size;
         init();
-
+        randomize();
     }
-    
+
+    public void addListener(PaneLListener toAdd) {
+        listeners.add(toAdd);
+    }
+
     @Override
-    public void newGame(){
-        
+    public void newGame() {
+
         this.removeAll();
         init();
-        
-    } 
+        randomize();
+
+    }
 
     public void init() {
 
@@ -100,7 +112,7 @@ public class gamePanel extends JPanel implements GUIButtonListener{
                         diffY = Math.abs(yy - y);
                         diffX = Math.abs(xx - x);
 
-                        //diffY/X >= 1 to move several pieces
+                        //diffY/X >= 1 to incrementMove several pieces
                         //TODO: implement several piece movement in swap()
                         if (diffY == 1 && diffX == 0 || diffX == 1 && diffY == 0) {
                             swap(A, btnList[yy][xx]);
@@ -112,8 +124,10 @@ public class gamePanel extends JPanel implements GUIButtonListener{
             }
 
             System.out.println("");
+
             for (int yy = 0; yy < btnList.length; yy++) {
-                for (int xx = 0; xx < btnList.length; xx++) {
+                for (int xx = 0; xx < btnList[yy].length; xx++) {
+
                     System.out.print(btnList[yy][xx].getText().equals(Integer.toString(btnList[yy][xx].pos())) + " ");
                 }
                 System.out.println("");
@@ -150,9 +164,81 @@ public class gamePanel extends JPanel implements GUIButtonListener{
 //        A.setText("");
         B.setText(A.getText());
         A.setText("");
+
+        listeners.forEach(PaneLListener::incrementMove);
     }
 
 //    public boolean tileIsMoveable(){
 //        
 //    }
+    public int[] getEmptyTile() {
+        int[] emptyTile = new int[2];
+        for (int yy = 0; yy < btnList.length; yy++) {
+            for (int xx = 0; xx < btnList[yy].length; xx++) {
+                if (btnList[yy][xx].getText().equals("")) {
+                    System.out.println(yy);
+                    System.out.println(xx);
+
+                    emptyTile[0] = yy;
+                    emptyTile[1] = xx;
+                    break;
+                }
+            }
+        }
+        return emptyTile;
+    }
+    
+    
+    public void randomize(){
+       int iterations = gridSize * gridSize;
+       String[] dirs = new String[]{"up", "down", "left", "right"};
+       Random rand = new Random();
+       
+        for (int i = 0; i < iterations; i++) {
+                   move(dirs[rand.nextInt(4)]);
+
+        }
+       
+        
+       
+    }
+
+    @Override
+    public void move(String dir) {
+
+        emptyY = getEmptyTile()[0];
+        emptyX = getEmptyTile()[1];
+
+        switch (dir.toLowerCase()) {
+            case "up":
+                newY = getEmptyTile()[0] - 1;
+                newX = getEmptyTile()[1];
+
+                break;
+            case "down":
+                newY = getEmptyTile()[0] + 1;
+                newX = getEmptyTile()[1];
+
+                break;
+            case "left":
+                newY = getEmptyTile()[0];
+                newX = getEmptyTile()[1] - 1;
+
+                break;
+            case "right":
+                newY = getEmptyTile()[0];
+                newX = getEmptyTile()[1] + 1;
+
+                break;
+
+        }
+        System.out.println("moving");
+
+        try {
+            swap(btnList[newY][newX],btnList[emptyY][emptyX]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("no can do");
+        }
+    }
+
 }

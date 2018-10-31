@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class SliderPuzzle {
 
@@ -16,23 +17,35 @@ public class SliderPuzzle {
         gameBoard game = new gameBoard();
         game.setLayout(new BoxLayout(game.getContentPane(), BoxLayout.Y_AXIS));
         GUIPanel gui = new GUIPanel();
-        gamePanel panel = new gamePanel(10);
+        gamePanel panel = new gamePanel(4);
+
+        game.addListener(panel);
 
         statPanel stats = new statPanel();
+
+        panel.addListener(stats);
         gui.addListener(panel);
         gui.addListener(stats);
 
         game.add(panel);
-        
+
         game.add(stats);
         game.add(gui);
+        
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
 
-        game.pack();
-        game.setLocationRelativeTo(null);
+                game.pack();
+                game.setLocationRelativeTo(null);
 
-        game.setVisible(true);
-        game.setAlwaysOnTop(true);
-        game.setResizable(true);
+                game.setVisible(true);
+                game.setAlwaysOnTop(true);
+                game.setResizable(true);
+
+            }
+
+        });
 
     }
 }

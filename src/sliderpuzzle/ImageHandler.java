@@ -41,6 +41,7 @@ public class ImageHandler {
             System.out.println("error " + ex);
         }
 
+        
         return img;
     }
 //     public BufferedImage loadFromUrl(int width, int height) {
