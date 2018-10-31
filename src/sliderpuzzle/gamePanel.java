@@ -1,12 +1,9 @@
 package sliderpuzzle;
 
-import com.sun.imageio.plugins.common.I18N;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.image.BufferedImage;
+import java.net.MalformedURLException;
 import javax.swing.*;
 
 /**
@@ -16,12 +13,27 @@ import javax.swing.*;
  */
 public class gamePanel extends JPanel {
 
+    private ImageHandler imgWiz = new ImageHandler();
     private JLabel label;
     private int gridSize;
     private sliderButton[][] btnList;
+    private BufferedImage image = null;
+    private BufferedImage[][] buttonImage;
+    
 
-    public gamePanel(int size) {
+    public gamePanel(int size) throws MalformedURLException {
+
+        setPreferredSize(new Dimension(500, 500));
+        buttonImage = new BufferedImage[size][size];
+        
+        image = imgWiz.loadFromUrl();
+
+        image = imgWiz.scale(image, 500.0, 500.0);
+
+        buttonImage = imgWiz.slice(size, size, image);
+
         btnList = new sliderButton[size][size];
+        ImageIcon ico = null;
 
         this.gridSize = size * size;
 
@@ -33,53 +45,67 @@ public class gamePanel extends JPanel {
                 k++;
 
                 sliderButton btn = new sliderButton((k == this.gridSize ? "" : Integer.toString(k)), j, i, k);
+
+                if (k != this.gridSize) {
+
+                    ico = new ImageIcon(buttonImage[i][j]);
+
+                    btn.setIcon(ico);
+                }
                 btnList[i][j] = btn;
                 add(btn);
 
-                btn.addActionListener(l -> {
-                    sliderButton A = ((sliderButton) l.getSource());
-                    int y = A.y();
-                    int x = A.x();
-                    int diffY = 0;
-                    int diffX = 0;
-                    int diff;
-                    int b = 0;
-
-                    OUTER:
-                    for (int yy = 0; yy < btnList.length; yy++) {
-                        for (int xx = 0; xx < btnList.length; xx++) {
-
-                            if (btnList[yy][xx].getText().equals("")) {
-
-                                diffY = Math.abs(yy - y);
-                                diffX = Math.abs(xx - x);
-
-                                if (diffY == 1 && diffX == 0 || diffX == 1 && diffY == 0) { //Sätt diffX/Y > 1 för korrekt logik, för att flytta fler krävs 
-                                                                                            // diffX/Y >= 1 och fungerade algoritm i swap metoden 
-                                    swap(A, btnList[yy][xx]);
-                                    break OUTER;
-                                }
-
-                            }
-                        }
-                    }
-
-                        System.out.println("");
-                    for (int yy = 0; yy < btnList.length; yy++) {
-                        for (int xx = 0; xx < btnList.length; xx++) {
-                            System.out.print(btnList[yy][xx].getText().equals(Integer.toString(btnList[yy][xx].pos())) + " ");
-                        }
-                        System.out.println("");
-                    }
-
-//                    System.out.println(btnList[btnList.length - 1][btnList.length - 1].pos());
-                });
+                this.setButtonActionListener(btn);
 
             }
 
         }
 
         setPreferredSize(new Dimension(500, 500));
+
+    }
+
+    public void setButtonActionListener(JButton button) {
+
+        button.addActionListener(l -> {
+            sliderButton A = ((sliderButton) l.getSource());
+            int y = A.y();
+            int x = A.x();
+            int diffY = 0;
+            int diffX = 0;
+            int diff;
+            int b = 0;
+
+            OUTER:
+            for (int yy = 0; yy < btnList.length; yy++) {
+                for (int xx = 0; xx < btnList.length; xx++) {
+
+                    if (btnList[yy][xx].getText().equals("")) {
+
+                        diffY = Math.abs(yy - y);
+                        diffX = Math.abs(xx - x);
+
+                        //diffY/X >= 1 to move several pieces
+                        //TODO: implement several piece movement in swap()
+                        if (diffY == 1 && diffX == 0 || diffX == 1 && diffY == 0) {
+                            swap(A, btnList[yy][xx]);
+                            break OUTER;
+                        }
+
+                    }
+                }
+            }
+
+            System.out.println("");
+            for (int yy = 0; yy < btnList.length; yy++) {
+                for (int xx = 0; xx < btnList.length; xx++) {
+                    System.out.print(btnList[yy][xx].getText().equals(Integer.toString(btnList[yy][xx].pos())) + " ");
+                }
+                System.out.println("");
+            }
+
+//                    System.out.println(btnList[btnList.length - 1][btnList.length - 1].pos());
+        });
 
     }
 
@@ -101,11 +127,11 @@ public class gamePanel extends JPanel {
 //                i++;
 //
 //            }
-            
-            
-
 //        }
 //        B.setText(A.getText());
+        B.setIcon(A.getIcon());
+        A.setIcon(null);
+
 //        A.setText("");
         B.setText(A.getText());
         A.setText("");

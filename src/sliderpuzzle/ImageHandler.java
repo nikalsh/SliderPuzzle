@@ -1,5 +1,6 @@
 package sliderpuzzle;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -15,8 +16,7 @@ import javax.imageio.ImageIO;
  */
 public class ImageHandler {
 
-    BufferedImage img = null;
-    URL url = new URL("https://cdn.psychologytoday.com/sites/default/files/styles/article-inline-half/public/field_blog_entry_images/2018-02/vicious_dog_0.png?itok=nsghKOHs");
+    private URL url = new URL("https://thenypost.files.wordpress.com/2016/05/north_korea_the_real_kim.jpg?quality=90&strip=all&strip=all");
 
     ImageHandler() throws MalformedURLException {
 
@@ -28,27 +28,83 @@ public class ImageHandler {
 
     }
 
-    public void load() {
+    public URL getUrl() {
+        return url;
+    }
 
+    public BufferedImage loadFromUrl() {
+        BufferedImage img = null;
         try {
             img = ImageIO.read(url);
-            img = scaleToWindow(img);
 
         } catch (IOException ex) {
             System.out.println("error " + ex);
         }
-    }
 
-    public BufferedImage scaleToWindow(Image src/*, int width, int height*/) {
-//        double widthScale = width / src.getWidth(null);
-//        double heightScale = height / src.getHeight(null);
+        return img;
+    }
+//     public BufferedImage loadFromUrl(int width, int height) {
+//         
+//         
+//        BufferedImage img = null;
+//        try {
+//            img = ImageIO.read(url);
+//
+//        } catch (IOException ex) {
+//            System.out.println("error " + ex);
+//        }
+//
+//        return scale(img, width, height);
+//    }
+
+    public BufferedImage scale(BufferedImage img, double width, double height) {
+        double widthScale = width / img.getWidth(null);
+        double heightScale = height / img.getHeight(null);
         AffineTransform tx = new AffineTransform();
-        tx.scale(1.5, 0.5);
+        tx.scale(widthScale, heightScale);
 
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
         BufferedImage re = null;
-        re = op.filter((BufferedImage) src, null);
+        re = op.filter((BufferedImage) img, null);
 
-        return re;
+       return re;
+    }
+    
+    public BufferedImage[][] slice(int rows, int cols, BufferedImage src) {
+        BufferedImage[][] slicedImageArray = new BufferedImage[rows][cols];
+      
+
+        int orgWidth = src.getWidth();
+        int orgHeight = src.getHeight();
+
+        System.out.println("Image Dimension: " + orgWidth + "x" + orgHeight);
+
+        //width and height of each piece
+        int eWidth = orgWidth / cols;
+        int eHeight = orgHeight / rows;
+
+        int x = 0;
+        int y = 0;
+
+        for (int i = 0; i < rows; i++) {
+            y = 0;
+            for (int j = 0; j < cols; j++) {
+                try {
+                    System.out.println("creating piece: " + i + " " + j);
+
+                    BufferedImage SubImgage = src.getSubimage(y, x, eWidth, eHeight);
+                    slicedImageArray[i][j] = SubImgage;
+
+                    y += eWidth;
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            x += eHeight;
+        }
+
+        return slicedImageArray;
     }
 }
