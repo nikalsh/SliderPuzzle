@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  */
 public class GUIPanel extends JPanel {
 
-    private List<GUIButtonListener> listeners = new ArrayList<>();
+    private List<RestartGameListener> listeners = new ArrayList<>();
 
     private JPanel statRow = new JPanel();
 
@@ -21,7 +21,7 @@ public class GUIPanel extends JPanel {
     private JButton quit = new JButton("Avsluta");
     private JButton move = new JButton("Flytta");
 
-    public void addListener(GUIButtonListener toAdd) {
+    public void addListener(RestartGameListener toAdd) {
         listeners.add(toAdd);
     }
 
@@ -37,7 +37,7 @@ public class GUIPanel extends JPanel {
         newGame.addActionListener(l -> {
 
             System.out.println("new game");
-            listeners.forEach(GUIButtonListener::newGame);
+            listeners.forEach(RestartGameListener::newGame);
 
         });
 

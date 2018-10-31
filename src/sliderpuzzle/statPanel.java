@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  *
  * @author nikalsh
  */
-public class statPanel extends JPanel implements GUIButtonListener, PaneLListener {
+public class statPanel extends JPanel implements RestartGameListener, PaneLListener{
 
     private JLabel timerDisplay = new JLabel("Tid: 00:00");
     private JLabel movesDisplay = new JLabel("Drag: 0");
@@ -69,5 +69,7 @@ public class statPanel extends JPanel implements GUIButtonListener, PaneLListene
     public void incrementMove() {
         addMove();
     }
+
+   
 
 }

@@ -17,11 +17,11 @@ public class SliderPuzzle {
         gameBoard game = new gameBoard();
         game.setLayout(new BoxLayout(game.getContentPane(), BoxLayout.Y_AXIS));
         GUIPanel gui = new GUIPanel();
-        gamePanel panel = new gamePanel(4);
-
-        game.addListener(panel);
-
+        gamePanel panel = new gamePanel(3);
         statPanel stats = new statPanel();
+
+        game.addRGListener(panel);
+        game.addRGListener(stats);
 
         panel.addListener(stats);
         gui.addListener(panel);
@@ -31,7 +31,7 @@ public class SliderPuzzle {
 
         game.add(stats);
         game.add(gui);
-        
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

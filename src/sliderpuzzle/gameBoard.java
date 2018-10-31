@@ -16,10 +16,15 @@ import javax.swing.JFrame;
  */
 public class gameBoard extends JFrame {
     
-    private List<KBControllerListener> listeners = new ArrayList<>();
+    private List<RestartGameListener> RGListerners = new ArrayList<>();
+    private List<KBControllerListener> KBListeners = new ArrayList<>();
     
     public void addListener(KBControllerListener toAdd) {
-        listeners.add(toAdd);
+        KBListeners.add(toAdd);
+    }
+    
+    public void addRGListener(RestartGameListener toAdd) {
+        RGListerners.add(toAdd);
     }
     
     private class myKeyListener implements KeyEventDispatcher {
@@ -39,29 +44,30 @@ public class gameBoard extends JFrame {
                     
                     case KeyEvent.VK_R:
                         System.out.println("restarting");
-                        //TODO restartGame();
+                        RGListerners.forEach(RestartGameListener::newGame);
+                        
                         break;
                     
                     case KeyEvent.VK_UP:
-                        listeners.stream().forEach((listener) -> { 
+                        KBListeners.stream().forEach((listener) -> { 
                             listener.move("up");
                         });
                         break;
                     
                     case KeyEvent.VK_DOWN:
-                             listeners.stream().forEach((listener) -> { 
+                             KBListeners.stream().forEach((listener) -> { 
                             listener.move("down");
                         });
                         break;
                     
                     case KeyEvent.VK_RIGHT:
-                            listeners.stream().forEach((listener) -> { 
+                            KBListeners.stream().forEach((listener) -> { 
                             listener.move("right");
                         });
                         break;
                     
                     case KeyEvent.VK_LEFT:
-                             listeners.stream().forEach((listener) -> { 
+                             KBListeners.stream().forEach((listener) -> { 
                             listener.move("left");
                         });
                         break;

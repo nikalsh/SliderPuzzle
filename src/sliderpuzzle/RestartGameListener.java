@@ -4,7 +4,7 @@ package sliderpuzzle;
  *
  * @author niklash
  */
-public interface GUIButtonListener {
+public interface RestartGameListener {
     
     
     public void newGame();

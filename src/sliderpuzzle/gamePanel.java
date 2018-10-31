@@ -7,6 +7,8 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -14,7 +16,7 @@ import javax.swing.*;
  * @author nikalsh
  * @author johanone
  */
-public class gamePanel extends JPanel implements GUIButtonListener, KBControllerListener {
+public class gamePanel extends JPanel implements RestartGameListener, KBControllerListener {
 
     int emptyX, emptyY, newX, newY;
 
@@ -39,6 +41,9 @@ public class gamePanel extends JPanel implements GUIButtonListener, KBController
         listeners.add(toAdd);
     }
 
+    
+    
+    
     @Override
     public void newGame() {
 
@@ -49,7 +54,13 @@ public class gamePanel extends JPanel implements GUIButtonListener, KBController
     }
 
     public void init() {
-
+        
+        try {
+            imgWiz.setURL("https://news.nationalgeographic.com/content/dam/news/2016/10/08/drill-monkey-waq/drill-monkey-01.ngsversion.1475926206479.adapt.1900.1.jpg");
+        } catch (MalformedURLException ex) {
+            System.out.println("failed to read URL");
+            
+        }
         setPreferredSize(new Dimension(500, 500));
         buttonImage = new BufferedImage[size][size];
 
@@ -241,4 +252,5 @@ public class gamePanel extends JPanel implements GUIButtonListener, KBController
         }
     }
 
+   
 }

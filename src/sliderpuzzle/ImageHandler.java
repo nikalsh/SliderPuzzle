@@ -16,7 +16,8 @@ import javax.imageio.ImageIO;
  */
 public class ImageHandler {
 
-    private URL url = new URL("https://thenypost.files.wordpress.com/2016/05/north_korea_the_real_kim.jpg?quality=90&strip=all&strip=all");
+    
+    private URL url = null;
 
     ImageHandler() throws MalformedURLException {
 
