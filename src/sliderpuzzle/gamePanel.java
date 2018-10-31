@@ -1,6 +1,6 @@
 package sliderpuzzle;
 
-import org.apache.commons.collections.map.MultiValueMap;
+//import org.apache.commons.collections.map.MultiValueMap;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
