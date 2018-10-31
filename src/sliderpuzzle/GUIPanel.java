@@ -2,11 +2,9 @@ package sliderpuzzle;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -14,13 +12,25 @@ import javax.swing.JPanel;
  * @author nikalsh
  */
 public class GUIPanel extends JPanel {
-    
+
+    private List<GUIButtonListener> listeners = new ArrayList<>();
+
     private JPanel statRow = new JPanel();
 
+    
+    
     private JButton newGame = new JButton("Nytt spel");
     private JButton quit = new JButton("Avsluta");
     private JButton move = new JButton("Flytta");
     
+    
+     public void addListener(GUIButtonListener toAdd){
+        listeners.add(toAdd);
+    }
+
+     
+   
+     
     
     GUIPanel() {
 
@@ -30,10 +40,16 @@ public class GUIPanel extends JPanel {
         add(move);
 
         add(quit);
-
+        
+        
+        
+        
         newGame.addActionListener(l -> {
-            //statPanel.resetTimer();
+            
             System.out.println("new game");
+           listeners.forEach(GUIButtonListener::newGame);
+            
+            
         });
 
         quit.addActionListener(l -> {
@@ -51,6 +67,7 @@ public class GUIPanel extends JPanel {
 //        add(moveDisplayer);
         newGame.setAlignmentX(LEFT_ALIGNMENT);
         setBackground(Color.red);
-        
+
     }
+
 }

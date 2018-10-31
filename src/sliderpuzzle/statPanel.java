@@ -14,7 +14,7 @@ import javax.swing.JPanel;
  *
  * @author nikalsh
  */
-public class statPanel extends JPanel {
+public class statPanel extends JPanel implements GUIButtonListener{
 
     private JLabel timerButton = new JLabel("Tid: 00:00");
     private JLabel moves = new JLabel("Drag: 0");
@@ -45,6 +45,14 @@ public class statPanel extends JPanel {
 
     public void resetTimer() {
         this.seconds = 0;
+    }
+
+    
+
+    @Override
+    public void newGame() {
+        resetTimer();
+        
     }
 
 }

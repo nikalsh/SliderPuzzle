@@ -11,21 +11,36 @@ import javax.swing.*;
  * @author nikalsh
  * @author johanone
  */
-public class gamePanel extends JPanel {
+public class gamePanel extends JPanel implements GUIButtonListener{
 
     private ImageHandler imgWiz = new ImageHandler();
     private JLabel label;
     private int gridSize;
+    private int size;
     private sliderButton[][] btnList;
     private BufferedImage image = null;
     private BufferedImage[][] buttonImage;
-    
 
     public gamePanel(int size) throws MalformedURLException {
 
+        this.size = size;
+        init();
+
+    }
+    
+    @Override
+    public void newGame(){
+        
+        this.removeAll();
+        init();
+        
+    } 
+
+    public void init() {
+
         setPreferredSize(new Dimension(500, 500));
         buttonImage = new BufferedImage[size][size];
-        
+
         image = imgWiz.loadFromUrl();
 
         image = imgWiz.scale(image, 500.0, 500.0);
