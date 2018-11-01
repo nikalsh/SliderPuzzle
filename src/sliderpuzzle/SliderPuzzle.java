@@ -20,6 +20,7 @@ public class SliderPuzzle {
         gamePanel panel = new gamePanel(3);
         statPanel stats = new statPanel();
 
+        game.addListener(panel);
         game.addRGListener(panel);
         game.addRGListener(stats);
 

@@ -63,6 +63,7 @@ public class ImageHandler {
         double widthScale = width / img.getWidth(null);
         double heightScale = height / img.getHeight(null);
         AffineTransform tx = new AffineTransform();
+        
         tx.scale(widthScale, heightScale);
 
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
@@ -73,6 +74,7 @@ public class ImageHandler {
     }
     
     public BufferedImage[][] slice(int rows, int cols, BufferedImage src) {
+        
         BufferedImage[][] slicedImageArray = new BufferedImage[rows][cols];
       
 
@@ -92,7 +94,6 @@ public class ImageHandler {
             y = 0;
             for (int j = 0; j < cols; j++) {
                 try {
-                    System.out.println("creating piece: " + i + " " + j);
 
                     BufferedImage SubImgage = src.getSubimage(y, x, eWidth, eHeight);
                     slicedImageArray[i][j] = SubImgage;
