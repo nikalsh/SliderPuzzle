@@ -187,8 +187,8 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
         for (int yy = 0; yy < btnList.length; yy++) {
             for (int xx = 0; xx < btnList[yy].length; xx++) {
                 if (btnList[yy][xx].getText().equals("")) {
-                    System.out.println(yy);
-                    System.out.println(xx);
+//                    System.out.println(yy);
+//                    System.out.println(xx);
 
                     emptyTile[0] = yy;
                     emptyTile[1] = xx;
@@ -222,28 +222,28 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
 
         switch (dir.toLowerCase()) {
             case "up":
-                newY = getEmptyTile()[0] - 1;
+                newY = getEmptyTile()[0] + 1;
                 newX = getEmptyTile()[1];
 
                 break;
             case "down":
-                newY = getEmptyTile()[0] + 1;
+                newY = getEmptyTile()[0] - 1;
                 newX = getEmptyTile()[1];
 
                 break;
             case "left":
                 newY = getEmptyTile()[0];
-                newX = getEmptyTile()[1] - 1;
+                newX = getEmptyTile()[1] + 1;
 
                 break;
             case "right":
                 newY = getEmptyTile()[0];
-                newX = getEmptyTile()[1] + 1;
+                newX = getEmptyTile()[1] - 1;
 
                 break;
 
         }
-        System.out.println("moving");
+//        System.out.println("moving");
 
         try {
             swap(btnList[newY][newX],btnList[emptyY][emptyX]);
