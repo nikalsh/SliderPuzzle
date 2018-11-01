@@ -1,7 +1,6 @@
 package sliderpuzzle;
 
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -169,6 +168,9 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
 //            }
 //        }
 //        B.setText(A.getText());
+        A.setFont(new Font("Arial", Font.PLAIN, 0));
+        B.setFont(new Font("Arial", Font.PLAIN, 0));
+        
         B.setIcon(A.getIcon());
         A.setIcon(null);
 
