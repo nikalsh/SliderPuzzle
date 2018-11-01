@@ -6,8 +6,6 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -25,14 +23,15 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
     private JLabel label;
     private int gridSize;
     private int size;
-    private sliderButton[][] btnList;
     private BufferedImage image = null;
     private BufferedImage[][] buttonImage;
+    private sliderButton[][] btnList;
+
 
     public gamePanel(int size) throws MalformedURLException {
 
         this.size = size;
-        init();
+        runPlayState();
         randomize();
     }
 
@@ -40,25 +39,29 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
         listeners.add(toAdd);
     }
 
-    
-    
-    
     @Override
     public void newGame() {
 
         this.removeAll();
-        init();
+        runPlayState();
+        setPreferredSize(new Dimension(500, 500));
+
         randomize();
 
     }
 
-    public void init() {
-        
+    public void runGameIsWonState() {
+       
+
+    }
+
+    public void runPlayState() {
+//https://picsum.photos/500/500/?random
         try {
-            imgWiz.setURL("https://news.nationalgeographic.com/content/dam/news/2016/10/08/drill-monkey-waq/drill-monkey-01.ngsversion.1475926206479.adapt.1900.1.jpg");
+            imgWiz.setURL("https://cdn.vox-cdn.com/thumbor/Or0rhkc1ciDqjrKv73IEXGHtna0=/0x0:666x444/1200x800/filters:focal(273x193:379x299)/cdn.vox-cdn.com/uploads/chorus_image/image/59384673/Macaca_nigra_self-portrait__rotated_and_cropped_.0.jpg");
         } catch (MalformedURLException ex) {
             System.out.println("failed to read URL");
-            
+
         }
         setPreferredSize(new Dimension(500, 500));
         buttonImage = new BufferedImage[size][size];
@@ -86,7 +89,7 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
                 if (k != this.gridSize) {
 
                     ico = new ImageIcon(buttonImage[i][j]);
-
+                    btn.setFont(new Font("Arial", Font.PLAIN, 0));
                     btn.setIcon(ico);
                 }
                 btnList[i][j] = btn;
@@ -97,8 +100,6 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
             }
 
         }
-
-        setPreferredSize(new Dimension(500, 500));
 
     }
 
@@ -122,7 +123,6 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
                         diffY = Math.abs(yy - y);
                         diffX = Math.abs(xx - x);
 
-                        //diffY/X >= 1 to incrementMove several pieces
                         //TODO: implement several piece movement in swap()
                         if (diffY == 1 && diffX == 0 || diffX == 1 && diffY == 0) {
                             swap(A, btnList[yy][xx]);
@@ -133,14 +133,10 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
                 }
             }
 
-            System.out.println("");
+            if (gameIsWon()) {
 
-            for (int yy = 0; yy < btnList.length; yy++) {
-                for (int xx = 0; xx < btnList[yy].length; xx++) {
-
-                    System.out.print(btnList[yy][xx].getText().equals(Integer.toString(btnList[yy][xx].pos())) + " ");
-                }
-                System.out.println("");
+                System.out.println("game is won");
+                runGameIsWonState();
             }
 
 //                    System.out.println(btnList[btnList.length - 1][btnList.length - 1].pos());
@@ -148,33 +144,33 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
 
     }
 
+    public boolean gameIsWon() {
+        System.out.println("");
+        int k = 0;
+
+        for (int yy = 0; yy < btnList.length; yy++) {
+            for (int xx = 0; xx < btnList[yy].length; xx++) {
+                k++;
+                if (k != this.gridSize) {
+                    System.out.print(btnList[yy][xx].getText().equals(Integer.toString(btnList[yy][xx].pos())) + " ");
+
+                    if (!btnList[yy][xx].getText().equals(Integer.toString(btnList[yy][xx].pos()))) {
+                        return false;
+                    }
+                }
+
+            }
+            System.out.println("");
+        }
+
+        return true;
+    }
+
     public void swap(sliderButton A, sliderButton B) {
 
-//        System.out.println(B.y() - A.y());
-//        if (B.y() - A.y() == 0) {
-//
-//            int diff = Math.abs(B.x() - A.x());
-//            int i = 0;
-//            while (diff > 1) {
-//                
-//                
-//                
-//                System.out.println(btnList[A.y()][A.x()+1].getText());
-//        
-//
-//                diff--;
-//                i++;
-//
-//            }
-//        }
-//        B.setText(A.getText());
-        A.setFont(new Font("Arial", Font.PLAIN, 0));
-        B.setFont(new Font("Arial", Font.PLAIN, 0));
-        
         B.setIcon(A.getIcon());
         A.setIcon(null);
 
-//        A.setText("");
         B.setText(A.getText());
         A.setText("");
 
@@ -200,20 +196,22 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
         }
         return emptyTile;
     }
-    
-    
-    public void randomize(){
-       int iterations = gridSize * gridSize;
-       String[] dirs = new String[]{"up", "down", "left", "right"};
-       Random rand = new Random();
-       
-        for (int i = 0; i < iterations; i++) {
-                   move(dirs[rand.nextInt(4)]);
 
-        }
-       
-        
-       
+    public void randomize() {
+
+        do {
+
+            int iterations = (gridSize * gridSize * gridSize);
+            String[] dirs = new String[]{"up", "down", "left", "right"};
+            Random rand = new Random();
+
+            for (int i = 0; i < iterations; i++) {
+                move(dirs[rand.nextInt(4)]);
+
+            }
+
+        } while (gameIsWon());
+
     }
 
     @Override
@@ -248,11 +246,10 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
 //        System.out.println("moving");
 
         try {
-            swap(btnList[newY][newX],btnList[emptyY][emptyX]);
+            swap(btnList[newY][newX], btnList[emptyY][emptyX]);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("no can do");
         }
     }
 
-   
 }
