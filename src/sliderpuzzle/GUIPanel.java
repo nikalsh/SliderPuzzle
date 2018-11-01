@@ -23,7 +23,7 @@ public class GUIPanel extends JPanel {
     private JButton quit = new JButton("Avsluta");
     private JButton move = new JButton("Flytta");
 
-    public void addListener(RestartGameListener toAdd) {
+    public void addRGListeners(RestartGameListener toAdd) {
         listeners.add(toAdd);
     }
 

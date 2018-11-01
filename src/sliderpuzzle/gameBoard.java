@@ -16,7 +16,7 @@ public class gameBoard extends JFrame {
     private List<RestartGameListener> RGListerners = new ArrayList<>();
     private List<KBControllerListener> KBListeners = new ArrayList<>();
     
-    public void addListener(KBControllerListener toAdd) {
+    public void addKBControllerListener(KBControllerListener toAdd) {
         KBListeners.add(toAdd);
     }
     

@@ -66,7 +66,7 @@ public class SliderPuzzle implements GameStateListener {
     }
 
     private void addListeners() {
-        game.addListener(panel);
+        game.addKBControllerListener(panel);
 
         game.addRGListener(panel);
 
@@ -77,9 +77,9 @@ public class SliderPuzzle implements GameStateListener {
         
         panel.addPaneLListener(stats);
 
-        gui.addListener(panel);
+        gui.addRGListeners(panel);
 
-        gui.addListener(stats);
+        gui.addRGListeners(stats);
     }
 
     public static void main(String[] args) throws MalformedURLException, IOException {
