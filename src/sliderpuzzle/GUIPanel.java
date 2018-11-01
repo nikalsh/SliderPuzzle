@@ -15,6 +15,8 @@ public class GUIPanel extends JPanel {
 
     private List<RestartGameListener> listeners = new ArrayList<>();
 
+    
+    
     private JPanel statRow = new JPanel();
 
     private JButton newGame = new JButton("Nytt spel");

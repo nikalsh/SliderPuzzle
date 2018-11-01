@@ -5,8 +5,12 @@ package sliderpuzzle;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -14,7 +18,8 @@ import javax.swing.JPanel;
  *
  * @author nikalsh
  */
-public class statPanel extends JPanel implements RestartGameListener, PaneLListener{
+public class statPanel extends JPanel implements RestartGameListener, PaneLListener, GameStateListener {
+
 
     private JLabel timerDisplay = new JLabel("Tid: 00:00");
     private JLabel movesDisplay = new JLabel("Drag: 0");
@@ -29,12 +34,18 @@ public class statPanel extends JPanel implements RestartGameListener, PaneLListe
         add(timerDisplay);
         add(movesDisplay);
 
-        timer = new Timer();
-        timer.scheduleAtFixedRate(timerTask, 0, 1000);
+        startNewTimer();
 
     }
 
+   private void startNewTimer(){
+        timer = new Timer();
+        timer.scheduleAtFixedRate(getNewTimer(), 0, 1000);
+    }
+    
+    private TimerTask getNewTimer(){
     TimerTask timerTask = new TimerTask() {
+
         @Override
         public void run() {
 
@@ -42,6 +53,8 @@ public class statPanel extends JPanel implements RestartGameListener, PaneLListe
             seconds++;
         }
     };
+    return timerTask;
+    }
 
     public void resetTimer() {
         this.seconds = 0;
@@ -70,6 +83,14 @@ public class statPanel extends JPanel implements RestartGameListener, PaneLListe
         addMove();
     }
 
-   
+    @Override
+    public void changeToWinState() {
+      timer.cancel();
+    }
+
+    @Override
+    public void changeToPlayState() {
+        startNewTimer();
+    }
 
 }

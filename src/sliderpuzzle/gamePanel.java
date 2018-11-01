@@ -3,9 +3,12 @@ package sliderpuzzle;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -17,7 +20,8 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
 
     int emptyX, emptyY, newX, newY;
 
-    private List<PaneLListener> listeners = new ArrayList<>();
+    private List<PaneLListener> paneLListeners = new ArrayList<>();
+    private List<GameStateListener> gameStateListeners = new ArrayList<>();
 
     private ImageHandler imgWiz = new ImageHandler();
     private JLabel label;
@@ -27,16 +31,49 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
     private BufferedImage[][] buttonImage;
     private sliderButton[][] btnList;
 
+    String humanDog = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSfkVopwJoEyFhWLXYzgNIiV36-Ry12m6KUyX_5gGRk0ACAIOngTw";
+    String monkey = ("https://cdn.vox-cdn.com/thumbor/Or0rhkc1ciDqjrKv73IEXGHtna0=/0x0:666x444/1200x800/filters:focal(273x193:379x299)/cdn.vox-cdn.com/uploads/chorus_image/image/59384673/Macaca_nigra_self-portrait__rotated_and_cropped_.0.jpg");
+    String randomImg = ("https://picsum.photos/500/500/?random");
 
     public gamePanel(int size) throws MalformedURLException {
 
         this.size = size;
         runPlayState();
         randomize();
+        setBounds(0, 0, 500, 500);
+        setPreferredSize(new Dimension(500, 500));
+
     }
 
-    public void addListener(PaneLListener toAdd) {
-        listeners.add(toAdd);
+    public void disableButtons() {
+        for (int i = 0; i < btnList.length; i++) {
+            for (int j = 0; j < btnList.length; j++) {
+                btnList[i][j].setEnabled(false);
+            }
+        }
+    }
+
+    public void enableButtons() {
+        for (int i = 0; i < btnList.length; i++) {
+            for (int j = 0; j < btnList.length; j++) {
+                btnList[i][j].setEnabled(true);
+            }
+        }
+    }
+
+    public void addPaneLListener(PaneLListener toAdd) {
+        paneLListeners.add(toAdd);
+    }
+
+    public void addGameStateListener(GameStateListener toAdd) {
+        gameStateListeners.add(toAdd);
+    }
+
+    public void runGameIsWonState() {
+
+        gameStateListeners.forEach(GameStateListener::changeToWinState);
+        disableButtons();
+
     }
 
     @Override
@@ -44,31 +81,25 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
 
         this.removeAll();
         runPlayState();
-        setPreferredSize(new Dimension(500, 500));
 
         randomize();
 
     }
 
-    public void runGameIsWonState() {
-       
-
-    }
-
     public void runPlayState() {
-//https://picsum.photos/500/500/?random
+        gameStateListeners.forEach(GameStateListener::changeToPlayState);
+
         try {
-            imgWiz.setURL("https://cdn.vox-cdn.com/thumbor/Or0rhkc1ciDqjrKv73IEXGHtna0=/0x0:666x444/1200x800/filters:focal(273x193:379x299)/cdn.vox-cdn.com/uploads/chorus_image/image/59384673/Macaca_nigra_self-portrait__rotated_and_cropped_.0.jpg");
+            imgWiz.setURL(monkey);
         } catch (MalformedURLException ex) {
             System.out.println("failed to read URL");
 
         }
-        setPreferredSize(new Dimension(500, 500));
         buttonImage = new BufferedImage[size][size];
 
         image = imgWiz.loadFromUrl();
 
-        image = imgWiz.scale(image, 500.0, 500.0);
+        image = imgWiz.resize(image, 500.0, 500.0);
 
         buttonImage = imgWiz.slice(size, size, image);
 
@@ -86,13 +117,17 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
 
                 sliderButton btn = new sliderButton((k == this.gridSize ? "" : Integer.toString(k)), j, i, k);
 
+                //slidebuttons
                 if (k != this.gridSize) {
 
                     ico = new ImageIcon(buttonImage[i][j]);
                     btn.setFont(new Font("Arial", Font.PLAIN, 0));
                     btn.setIcon(ico);
+
                 }
+                //the empty button
                 btnList[i][j] = btn;
+                btn.setFont(new Font("Arial", Font.PLAIN, 0));
                 add(btn);
 
                 this.setButtonActionListener(btn);
@@ -174,7 +209,7 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
         B.setText(A.getText());
         A.setText("");
 
-        listeners.forEach(PaneLListener::incrementMove);
+        paneLListeners.forEach(PaneLListener::incrementMove);
     }
 
 //    public boolean tileIsMoveable(){

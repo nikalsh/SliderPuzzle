@@ -5,54 +5,89 @@ package sliderpuzzle;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-public class SliderPuzzle {
+public class SliderPuzzle implements GameStateListener {
+
+    private gameBoard game;
+    private GUIPanel gui;
+    private gamePanel panel;
+    private statPanel stats;
+    private winScreen win;
+    private JLayeredPane lp;
+
+    SliderPuzzle() throws MalformedURLException {
+
+        game = new gameBoard();
+
+        game.setLayout(new BoxLayout(game.getContentPane(), BoxLayout.Y_AXIS));
+        gui = new GUIPanel();
+        panel = new gamePanel(3);
+        stats = new statPanel();
+        win = new winScreen();
+
+        lp = new JLayeredPane();
+
+        lp.setPreferredSize(new Dimension(500, 500));
+
+        lp.add(panel, new Integer(0));
+
+        lp.add(win, new Integer(1));
+
+        game.add(lp);
+
+        game.add(stats);
+
+        game.add(gui);
+        
+
+        addListeners();
+    }
+
+    public gameBoard getGame() {
+        return this.game;
+    }
+
+   @Override
+    public void changeToWinState() {
+        win.setVisible(true);
+        win.enableInputMethods(true);
+    }
+
+    @Override
+    public void changeToPlayState() {
+        win.setVisible(false);
+        win.setEnabled(true);
+    }
+
+    private void addListeners() {
+        game.addListener(panel);
+
+        game.addRGListener(panel);
+
+        game.addRGListener(stats);
+
+        panel.addGameStateListener(this);
+        panel.addGameStateListener(stats);
+        
+        panel.addPaneLListener(stats);
+
+        gui.addListener(panel);
+
+        gui.addListener(stats);
+    }
 
     public static void main(String[] args) throws MalformedURLException, IOException {
 
-        gameStatePane lp = new gameStatePane();
-       
-        
-        gameBoard game = new gameBoard();
-        game.setLayout(new BoxLayout(game.getContentPane(), BoxLayout.Y_AXIS));
-        GUIPanel gui = new GUIPanel();
-        gamePanel panel = new gamePanel(2);
-        statPanel stats = new statPanel();
+        SliderPuzzle sp = new SliderPuzzle();
+        gameBoard game = sp.getGame();
 
-        
-        
-        
-        
-        game.addListener(panel);
-        game.addRGListener(panel);
-        game.addRGListener(stats);
-
-        panel.addListener(stats);
-        gui.addListener(panel);
-        gui.addListener(stats);
-        
-        
-//        lp.addGamePanel(panel, 0);
-
-        game.add(panel);
-        
-
-//        game.add(panel);
-//        game.add(lp);
-
-        game.add(stats);
-        game.add(gui);
-
+//        panel.disableButtons();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -69,4 +104,7 @@ public class SliderPuzzle {
         });
 
     }
+
+    
+
 }

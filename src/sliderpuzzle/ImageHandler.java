@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
  */
 public class ImageHandler {
 
-    
     private URL url = null;
 
     ImageHandler() throws MalformedURLException {
@@ -42,41 +41,27 @@ public class ImageHandler {
             System.out.println("error " + ex);
         }
 
-        
         return img;
     }
-//     public BufferedImage loadFromUrl(int width, int height) {
-//         
-//         
-//        BufferedImage img = null;
-//        try {
-//            img = ImageIO.read(url);
-//
-//        } catch (IOException ex) {
-//            System.out.println("error " + ex);
-//        }
-//
-//        return scale(img, width, height);
-//    }
 
-    public BufferedImage scale(BufferedImage img, double width, double height) {
+    public BufferedImage resize(BufferedImage img, double width, double height) {
         double widthScale = width / img.getWidth(null);
         double heightScale = height / img.getHeight(null);
         AffineTransform tx = new AffineTransform();
-        
+
         tx.scale(widthScale, heightScale);
 
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-        BufferedImage re = null;
-        re = op.filter((BufferedImage) img, null);
+        BufferedImage resized = null;
+        resized = op.filter((BufferedImage) img, null);
 
-       return re;
+        return resized;
+
     }
-    
+
     public BufferedImage[][] slice(int rows, int cols, BufferedImage src) {
-        
+
         BufferedImage[][] slicedImageArray = new BufferedImage[rows][cols];
-      
 
         int orgWidth = src.getWidth();
         int orgHeight = src.getHeight();
