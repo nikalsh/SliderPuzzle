@@ -96,7 +96,7 @@ public class SliderPuzzle implements GameStateListener, SubmitListener {
         game.addRGListener(stats);
         gui.addRGListeners(panel);
         gui.addRGListeners(stats);
-      
+        gui.addRGListeners(hiscore);
         
         win.addRGListeners(panel);
         win.addRGListeners(stats);

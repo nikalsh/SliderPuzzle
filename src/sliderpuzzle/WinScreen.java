@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class WinScreen extends JPanel {
+public class WinScreen extends JPanel{
 
     private JPanel innerPanel = new JPanel();
     private Box winBox = Box.createVerticalBox();

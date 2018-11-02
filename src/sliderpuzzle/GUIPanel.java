@@ -57,7 +57,7 @@ public class GUIPanel extends JPanel {
 //        add(timerDisplayer);
 //        add(moveDisplayer);
         newGame.setAlignmentX(LEFT_ALIGNMENT);
-        setBackground(Color.red);
+//        setBackground(Color.red);
 
     }
 
