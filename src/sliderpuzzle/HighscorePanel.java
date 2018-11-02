@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  *
  * @author nikalsh
  */
-public class HighscorePanel extends JPanel implements submitListener{
+public class HighscorePanel extends JPanel implements RestartGameListener{
 
     private onlineHighscoreHandler scoreHandler;
     private List<String> highScoreList = new ArrayList<>();
@@ -62,10 +62,10 @@ public class HighscorePanel extends JPanel implements submitListener{
 
     }
 
+
     @Override
-    public void updateScoreAfterSubmit() {
+    public void newGame() {
         
         updateScores();
-        
     }
 }

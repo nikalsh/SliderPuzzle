@@ -19,11 +19,12 @@ import javax.swing.JTextField;
 
 public class winScreen extends JPanel {
 
-    
-    private List<submitListener> submitListeners = new ArrayList<>();
-    
     private JPanel innerPanel = new JPanel();
     private Box winBox = Box.createVerticalBox();
+
+    
+        private List<RestartGameListener> listeners = new ArrayList<>();
+
 
     private JTextField input = new JTextField();
     private JLabel label = new JLabel("win");
@@ -34,10 +35,12 @@ public class winScreen extends JPanel {
     int moves;
     int seconds;
     String grid;
+
     
-    public void addSubmitListener(submitListener s){
-        submitListeners.add(s);
+      public void addRGListeners(RestartGameListener toAdd) {
+        listeners.add(toAdd);
     }
+ 
 
     public winScreen() {
 
@@ -57,15 +60,11 @@ public class winScreen extends JPanel {
         add(label);
         input.setMaximumSize(new Dimension(Integer.MAX_VALUE, input.getPreferredSize().height));
         add(input);
-
+        add(submit);
         submit.addActionListener(l -> {
 
             name = input.getText();
-            
-            
-            submitListeners.forEach(submitListener::updateScoreAfterSubmit);
-            
-            
+
             try {
                 scoreRegister = String.format("%s solved %s in %s moves and %s seconds",
                         name, grid, moves, seconds);
@@ -74,16 +73,14 @@ public class winScreen extends JPanel {
             } catch (IOException ex) {
                 System.out.println("could not post new highscore: " + ex);
             }
-        });
+            System.out.println("new game");
+            listeners.forEach(RestartGameListener::newGame);
+            input.setText("");
 
-        add(submit);
+        });
 
         setVisible(false);
 
-    }
-
-    public void submitAndUpdate(HighscorePanel hi) {
-        hi.updateScores();
     }
 
     public void setScore(int moves, int seconds) {

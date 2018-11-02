@@ -17,7 +17,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.SwingUtilities;
 
-public class SliderPuzzle implements GameStateListener {
+public class SliderPuzzle implements GameStateListener, submitListener {
 
     private gameBoard game;
     private GUIPanel gui;
@@ -77,14 +77,20 @@ public class SliderPuzzle implements GameStateListener {
         win.enableInputMethods(true);
         win.setScore(stats.getMoves(), stats.getSeconds());
         win.setGridSize(panel.getGridSize());
-        win.submitAndUpdate(hiscore);
     }
 
     @Override
     public void changeToPlayState() {
         win.setVisible(false);
-        win.setEnabled(true); 
+        win.setEnabled(false); 
         
+    }
+    @Override
+    public void updateScoreAfterSubmit() {
+        changeToPlayState();
+       stats.newGame();
+       
+        panel.newGame();
     }
 
     private void addListeners() {
@@ -94,11 +100,17 @@ public class SliderPuzzle implements GameStateListener {
         panel.addGameStateListener(stats);
         
         panel.addPaneLListener(stats);
+        
         game.addRGListener(panel);
         game.addRGListener(stats);
         gui.addRGListeners(panel);
         gui.addRGListeners(stats);
-        win.addSubmitListener(hiscore);
+      
+        
+        win.addRGListeners(panel);
+        win.addRGListeners(stats);
+        win.addRGListeners(hiscore);
+        
     }
 
     public static void main(String[] args) throws MalformedURLException, IOException {
@@ -126,4 +138,7 @@ public class SliderPuzzle implements GameStateListener {
 
     }
 
+    
+
+   
 }
