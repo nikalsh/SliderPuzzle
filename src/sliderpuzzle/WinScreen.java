@@ -62,19 +62,20 @@ public class WinScreen extends JPanel{
         submit.addActionListener(l -> {
 
             name = input.getText();
-
-            try {
-                scoreRegister = String.format("%s solved %s in %s moves and %s seconds",
-                        name, grid, moves, seconds);
-
-                scoreHandler.postNewHighScore(scoreRegister);
-            } catch (IOException ex) {
-                System.out.println("could not post new highscore: " + ex);
-            }
-            System.out.println("new game");
-            listeners.forEach(RestartGameListener::newGame);
-            input.setText("");
-
+if (name.length () <= 10) {
+    
+    try {
+        scoreRegister = String.format ("%s solved %s in %s moves and %s seconds",
+                name, grid, moves, seconds);
+        
+        scoreHandler.postNewHighScore (scoreRegister);
+    } catch (IOException ex) {
+        System.out.println ("could not post new highscore: " + ex);
+    }
+    System.out.println ("new game");
+    listeners.forEach (RestartGameListener::newGame);
+    input.setText ("");
+}
         });
 
         setVisible(false);
