@@ -35,13 +35,13 @@ public class gameBoard extends JFrame {
                 switch (e.getKeyCode()) {
                     
                     case KeyEvent.VK_Q:
-                        System.out.println("bye");
-                        System.exit(0);
+//                        System.out.println("bye");
+//                        System.exit(0);
                         break;
                     
                     case KeyEvent.VK_R:
-                        System.out.println("restarting");
-                        RGListerners.forEach(RestartGameListener::newGame);
+//                        System.out.println("restarting");
+//                        RGListerners.forEach(RestartGameListener::newGame);
                         
                         break;
                     
