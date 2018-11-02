@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author nikalsh
  */
-public class onlineHighscoreHandler {
+public class onlineHighscoreHandler{
 
     private String url = "http://nodejs.nikals.se/highscore/highscore.php";
     private ArrayList<String> highScoreList = new ArrayList<>();
@@ -67,5 +67,7 @@ public class onlineHighscoreHandler {
 
         return this.highScoreList;
     }
+
+    
 
 }

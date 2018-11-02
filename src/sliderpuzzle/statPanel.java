@@ -20,7 +20,6 @@ import javax.swing.JPanel;
  */
 public class statPanel extends JPanel implements RestartGameListener, PaneLListener, GameStateListener {
 
-
     private JLabel timerDisplay = new JLabel("Tid: 00:00");
     private JLabel movesDisplay = new JLabel("Drag: 0");
     private int seconds;
@@ -38,22 +37,22 @@ public class statPanel extends JPanel implements RestartGameListener, PaneLListe
 
     }
 
-   private void startNewTimer(){
+    private void startNewTimer() {
         timer = new Timer();
         timer.scheduleAtFixedRate(getNewTimer(), 0, 1000);
     }
-    
-    private TimerTask getNewTimer(){
-    TimerTask timerTask = new TimerTask() {
 
-        @Override
-        public void run() {
+    private TimerTask getNewTimer() {
+        TimerTask timerTask = new TimerTask() {
 
-            timerDisplay.setText("Tid: " + seconds);
-            seconds++;
-        }
-    };
-    return timerTask;
+            @Override
+            public void run() {
+
+                timerDisplay.setText("Tid: " + seconds);
+                seconds++;
+            }
+        };
+        return timerTask;
     }
 
     public void resetTimer() {
@@ -85,12 +84,22 @@ public class statPanel extends JPanel implements RestartGameListener, PaneLListe
 
     @Override
     public void changeToWinState() {
-      timer.cancel();
+        timer.cancel();
     }
 
     @Override
     public void changeToPlayState() {
+        timer.cancel();
         startNewTimer();
     }
+    
+    public int getSeconds(){
+        return seconds;
+    }
+    
+    public int getMoves(){
+        return moves;
+    }
 
+    
 }
