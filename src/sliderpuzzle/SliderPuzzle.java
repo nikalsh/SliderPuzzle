@@ -3,19 +3,10 @@
  */
 package sliderpuzzle;
 
-import com.sun.prism.j2d.J2DPipeline;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.SwingUtilities;
 
 public class SliderPuzzle implements GameStateListener, submitListener {
 
@@ -23,7 +14,7 @@ public class SliderPuzzle implements GameStateListener, submitListener {
     private GUIPanel gui;
     private gamePanel panel;
     private statPanel stats;
-    private winScreen win;
+    private WinScreen win;
     private JLayeredPane lp;
     private HighscorePanel hiscore;
     Box leftColumn = Box.createVerticalBox();
@@ -41,7 +32,7 @@ public class SliderPuzzle implements GameStateListener, submitListener {
         gui = new GUIPanel();
         panel = new gamePanel(2);
         stats = new statPanel();
-        win = new winScreen();
+        win = new WinScreen ();
 
         lp = new JLayeredPane();
 

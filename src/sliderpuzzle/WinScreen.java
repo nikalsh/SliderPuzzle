@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class winScreen extends JPanel {
+public class WinScreen extends JPanel {
 
     private JPanel innerPanel = new JPanel();
     private Box winBox = Box.createVerticalBox();
@@ -42,7 +42,7 @@ public class winScreen extends JPanel {
     }
  
 
-    public winScreen() {
+    public WinScreen () {
 
         try {
             scoreHandler = new onlineHighscoreHandler();
