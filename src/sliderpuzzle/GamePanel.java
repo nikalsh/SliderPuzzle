@@ -3,12 +3,9 @@ package sliderpuzzle;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -16,7 +13,7 @@ import javax.swing.*;
  * @author nikalsh
  * @author johanone
  */
-public class gamePanel extends JPanel implements RestartGameListener, KBControllerListener {
+public class GamePanel extends JPanel implements RestartGameListener, KBControllerListener {
 
     int emptyX, emptyY, newX, newY;
 
@@ -29,7 +26,7 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
     private int size;
     private BufferedImage image = null;
     private BufferedImage[][] buttonImage;
-    private sliderButton[][] btnList;
+    private SliderButton[][] btnList;
 
     String humanDog = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSfkVopwJoEyFhWLXYzgNIiV36-Ry12m6KUyX_5gGRk0ACAIOngTw";
     String monkey = ("https://cdn.vox-cdn.com/thumbor/Or0rhkc1ciDqjrKv73IEXGHtna0=/0x0:666x444/1200x800/filters:focal(273x193:379x299)/cdn.vox-cdn.com/uploads/chorus_image/image/59384673/Macaca_nigra_self-portrait__rotated_and_cropped_.0.jpg");
@@ -39,7 +36,7 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
         return size;
     }
     
-    public gamePanel(int size) throws MalformedURLException {
+    public GamePanel (int size) throws MalformedURLException {
 
         this.size = size;
         runPlayState();
@@ -107,7 +104,7 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
 
         buttonImage = imgWiz.slice(size, size, image);
 
-        btnList = new sliderButton[size][size];
+        btnList = new SliderButton[size][size];
         ImageIcon ico = null;
 
         this.gridSize = size * size;
@@ -119,7 +116,7 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
             for (int j = 0; j < size; j++) {
                 k++;
 
-                sliderButton btn = new sliderButton((k == this.gridSize ? "" : Integer.toString(k)), j, i, k);
+                SliderButton btn = new SliderButton ((k == this.gridSize ? "" : Integer.toString(k)), j, i, k);
 
                 //slidebuttons
                 if (k != this.gridSize) {
@@ -145,7 +142,7 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
     public void setButtonActionListener(JButton button) {
 
         button.addActionListener(l -> {
-            sliderButton A = ((sliderButton) l.getSource());
+            SliderButton A = ((SliderButton) l.getSource());
             int y = A.y();
             int x = A.x();
             int diffY = 0;
@@ -205,7 +202,7 @@ public class gamePanel extends JPanel implements RestartGameListener, KBControll
         return true;
     }
 
-    public void swap(sliderButton A, sliderButton B) {
+    public void swap(SliderButton A, SliderButton B) {
 
         B.setIcon(A.getIcon());
         A.setIcon(null);

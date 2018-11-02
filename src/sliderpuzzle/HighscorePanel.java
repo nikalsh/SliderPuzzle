@@ -1,11 +1,9 @@
 package sliderpuzzle;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.JLabel;
@@ -17,7 +15,7 @@ import javax.swing.JPanel;
  */
 public class HighscorePanel extends JPanel implements RestartGameListener{
 
-    private onlineHighscoreHandler scoreHandler;
+    private OnlineHighscoreHandler scoreHandler;
     private List<String> highScoreList = new ArrayList<>();
     private JLabel title = new JLabel("Latest games: ");
     Box scoreBox = Box.createVerticalBox();
@@ -47,7 +45,7 @@ public class HighscorePanel extends JPanel implements RestartGameListener{
 
 
         try {
-            scoreHandler = new onlineHighscoreHandler();
+            scoreHandler = new OnlineHighscoreHandler ();
         } catch (IOException ex) {
             System.out.println("could not instantiate score handler: " + ex);
         }

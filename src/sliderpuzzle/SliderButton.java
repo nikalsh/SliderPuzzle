@@ -14,13 +14,13 @@ import javax.swing.event.AncestorListener;
  * @author nikalsh
  *
  */
-public class sliderButton extends JButton {
+public class SliderButton extends JButton {
 
     private int pos;
     private int x;
     private int y;
 
-    public sliderButton(String s, int x, int y, int pos) {
+    public SliderButton (String s, int x, int y, int pos) {
         super(s);
         this.pos = pos;
         this.x = x;

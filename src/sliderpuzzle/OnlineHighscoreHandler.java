@@ -13,12 +13,12 @@ import java.util.ArrayList;
  *
  * @author nikalsh
  */
-public class onlineHighscoreHandler{
+public class OnlineHighscoreHandler {
 
     private String url = "http://nodejs.nikals.se/highscore/highscore.php";
     private ArrayList<String> highScoreList = new ArrayList<>();
 
-    public onlineHighscoreHandler() throws MalformedURLException, IOException {
+    public OnlineHighscoreHandler () throws MalformedURLException, IOException {
     }
 
     public void postNewHighScore(String registerHighScore) throws MalformedURLException, IOException {

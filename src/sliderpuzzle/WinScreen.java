@@ -8,8 +8,6 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -29,7 +27,7 @@ public class WinScreen extends JPanel {
     private JTextField input = new JTextField();
     private JLabel label = new JLabel("win");
     private JButton submit = new JButton("Submit score");
-    private onlineHighscoreHandler scoreHandler;
+    private OnlineHighscoreHandler scoreHandler;
     private String name = "null";
     private String scoreRegister;
     int moves;
@@ -45,7 +43,7 @@ public class WinScreen extends JPanel {
     public WinScreen () {
 
         try {
-            scoreHandler = new onlineHighscoreHandler();
+            scoreHandler = new OnlineHighscoreHandler ();
         } catch (IOException ex) {
             System.out.println("could not instantiate score handler: " + ex);
         }

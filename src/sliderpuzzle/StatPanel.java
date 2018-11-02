@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  *
  * @author nikalsh
  */
-public class statPanel extends JPanel implements RestartGameListener, PaneLListener, GameStateListener {
+public class StatPanel extends JPanel implements RestartGameListener, PaneLListener, GameStateListener {
 
     private JLabel timerDisplay = new JLabel("Tid: 00:00");
     private JLabel movesDisplay = new JLabel("Drag: 0");
@@ -26,7 +26,7 @@ public class statPanel extends JPanel implements RestartGameListener, PaneLListe
     private int moves;
     private Timer timer;
 
-    public statPanel() {
+    public StatPanel () {
         setLayout(new GridLayout(2, 0));
         setBackground(Color.yellow);
 

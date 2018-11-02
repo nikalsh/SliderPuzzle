@@ -8,12 +8,12 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-public class SliderPuzzle implements GameStateListener, submitListener {
+public class SliderPuzzle implements GameStateListener, SubmitListener {
 
     private gameBoard game;
     private GUIPanel gui;
-    private gamePanel panel;
-    private statPanel stats;
+    private GamePanel panel;
+    private StatPanel stats;
     private WinScreen win;
     private JLayeredPane lp;
     private HighscorePanel hiscore;
@@ -30,8 +30,8 @@ public class SliderPuzzle implements GameStateListener, submitListener {
 //        game.setLayout(new BoxLayout(game.getContentPane(), BoxLayout.Y_AXIS));
 //        game.setBounds(0,0,500,500);
         gui = new GUIPanel();
-        panel = new gamePanel(2);
-        stats = new statPanel();
+        panel = new GamePanel (2);
+        stats = new StatPanel ();
         win = new WinScreen ();
 
         lp = new JLayeredPane();
