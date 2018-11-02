@@ -69,7 +69,7 @@ public class SliderPuzzle implements GameStateListener, SubmitListener {
         win.setScore(stats.getMoves(), stats.getSeconds());
         win.setGridSize(panel.getGridSize());
     }
-
+    
     @Override
     public void changeToPlayState() {
         win.setVisible(false);

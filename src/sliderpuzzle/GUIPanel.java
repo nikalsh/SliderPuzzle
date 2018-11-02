@@ -11,7 +11,7 @@ import javax.swing.*;
  * @author nikalsh
  */
 public class GUIPanel extends JPanel  {
-static int size;
+static int size = 2;
     private List<RestartGameListener> listeners = new ArrayList<>();
 int selectedIndex;
 String[] gameSizeSettings = {

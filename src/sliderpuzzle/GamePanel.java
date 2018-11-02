@@ -38,7 +38,7 @@ public int getGridSize () {
 
 public GamePanel (int size) throws MalformedURLException {
     
-    this.size = size;
+    this.size = GUIPanel.size;
     runPlayState ();
     randomize ();
     setBounds (0, 0, 500, 500);
@@ -80,7 +80,7 @@ public void runGameIsWonState () {
 @Override
 public void newGame () {
     
-    this.size = GUIPanel.size;
+    
     
     this.removeAll ();
     runPlayState ();
@@ -93,7 +93,7 @@ public void runPlayState () {
     gameStateListeners.forEach (GameStateListener::changeToPlayState);
     
     try {
-        imgWiz.setURL (monkey);
+        imgWiz.setURL (randomImg);
     } catch (MalformedURLException ex) {
         System.out.println ("failed to read URL");
         
