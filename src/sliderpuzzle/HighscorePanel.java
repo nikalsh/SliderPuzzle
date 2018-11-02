@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.Box;
 import javax.swing.JLabel;
@@ -56,6 +58,9 @@ public class HighscorePanel extends JPanel implements RestartGameListener{
 
         highScoreList = GetHighScores();
         //        setLayout(new B);
+
+        Collections.reverse(highScoreList);
+                
         for (int i = 0; i < (highScoreList.size() < 25 ? highScoreList.size() : 25); i++) {
             scoreBox.add(new JLabel(highScoreList.get(i)));
         }
