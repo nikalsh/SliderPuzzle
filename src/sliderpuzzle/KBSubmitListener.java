@@ -7,9 +7,9 @@ package sliderpuzzle;
  *
  * @author nikalsh
  */
-public interface SubmitListener {
+public interface KBSubmitListener {
     
     
-    public void updateScoreAfterSubmit();
+    public void submitByEnterPress();
     
 }
