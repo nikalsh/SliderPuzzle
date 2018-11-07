@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 
 public class SliderPuzzle implements GameStateListener {
 
-    private GameBoard game;
+    private GGameBoard game;
     private GUIPanel gui;
     private GamePanel panel;
     private StatPanel stats;
@@ -23,7 +23,7 @@ public class SliderPuzzle implements GameStateListener {
 
     SliderPuzzle() throws MalformedURLException {
 
-        game = new GameBoard();
+        game = new GGameBoard();
 
         hiscore = new HighscorePanel();
 
@@ -53,7 +53,7 @@ public class SliderPuzzle implements GameStateListener {
         addListeners();
     }
 
-    public GameBoard getGame() {
+    public GGameBoard getGame() {
         return this.game;
     }
 
@@ -100,7 +100,7 @@ public class SliderPuzzle implements GameStateListener {
     public static void main(String[] args) throws MalformedURLException, IOException {
 
         SliderPuzzle sp = new SliderPuzzle();
-        GameBoard game = sp.getGame();
+        GGameBoard game = sp.getGame();
         game.setUndecorated(true);
 //        game.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
