@@ -5,9 +5,12 @@ package sliderpuzzle;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.input.KeyCode;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -15,14 +18,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class WinScreen extends JPanel{
+public class WinScreen extends JPanel implements KBSubmitListener {
 
     private JPanel innerPanel = new JPanel();
     private Box winBox = Box.createVerticalBox();
 
-    
-        private List<RestartGameListener> listeners = new ArrayList<>();
-
+    private List<RestartGameListener> listeners = new ArrayList<>();
 
     private JTextField input = new JTextField();
     private JLabel label = new JLabel("win");
@@ -34,16 +35,14 @@ public class WinScreen extends JPanel{
     int seconds;
     String grid;
 
-    
-      public void addRGListeners(RestartGameListener toAdd) {
+    public void addRGListeners(RestartGameListener toAdd) {
         listeners.add(toAdd);
     }
- 
 
-    public WinScreen () {
+    public WinScreen() {
 
         try {
-            scoreHandler = new OnlineHighscoreHandler ();
+            scoreHandler = new OnlineHighscoreHandler();
         } catch (IOException ex) {
             System.out.println("could not instantiate score handler: " + ex);
         }
@@ -59,25 +58,26 @@ public class WinScreen extends JPanel{
         input.setMaximumSize(new Dimension(Integer.MAX_VALUE, input.getPreferredSize().height));
         add(input);
         add(submit);
+
         submit.addActionListener(l -> {
 
             name = input.getText();
-if (name.length () <= 10) {
-    
-    try {
-        scoreRegister = String.format ("%s solved %s in %s moves and %s seconds",
-                name, grid, moves, seconds);
-        
-        scoreHandler.postNewHighScore (scoreRegister);
-    } catch (IOException ex) {
-        System.out.println ("could not post new highscore: " + ex);
-    }
-    System.out.println ("new game");
-    listeners.forEach (RestartGameListener::newGame);
-    input.setText ("");
-}
-        });
+            if (name.length() <= 10) {
 
+                try {
+                    scoreRegister = String.format("%s solved %s in %s moves and %s seconds",
+                            name, grid, moves, seconds);
+
+                    scoreHandler.postNewHighScore(scoreRegister);
+                } catch (IOException ex) {
+                    System.out.println("could not post new highscore: " + ex);
+                }
+                System.out.println("new game");
+                listeners.forEach(RestartGameListener::newGame);
+                input.setText("");
+            }
+
+        });
         setVisible(false);
 
     }
@@ -92,4 +92,13 @@ if (name.length () <= 10) {
         this.grid = temp + "x" + temp;
     }
 
+    @Override
+    public void submitByEnterPress() {
+        submit.doClick();
+    }
+
+    public void focusCursorToInputField() {
+        input.requestFocusInWindow();
+    }
+    
 }
