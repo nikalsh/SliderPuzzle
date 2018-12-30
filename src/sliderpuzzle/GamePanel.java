@@ -108,7 +108,7 @@ public class GamePanel extends JPanel implements RestartGameListener, KBControll
         gameStateListeners.forEach(GameStateListener::changeToPlayState);
 
         try {
-            imgWiz.setURL(monkey);
+            imgWiz.setURL(randomImg);
         } catch (MalformedURLException ex) {
             System.out.println("failed to read URL");
 
