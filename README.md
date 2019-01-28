@@ -1,4 +1,4 @@
-###Slider Puzzle
+### Slider Puzzle
 
 -  Variable difficulty settings
 - Random picture every game
