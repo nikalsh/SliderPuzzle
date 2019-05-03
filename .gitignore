@@ -1,1 +1,9 @@
-/highscore.php
+*nbproject/
+*build/
+*nbbuild/
+*dist/
+*nbdist/
+*nbactions.xml
+*nb-configuration.xml
+*build.xml
+highscore.php
